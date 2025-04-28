@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} Отзывы {% endblock %}
+
+{% block main %}
+    <div class="box-social">
+        <ul class="link-social">
+            <li><a href="{{ url_for('generate_review_form') }}" class="btn btn-dart"><i class="bi bi-pencil"></i> Оставить отзыв</a></li>
+        </ul>
+    </div>
+
+{% endblock %}

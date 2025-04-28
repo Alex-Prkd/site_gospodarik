@@ -8,7 +8,7 @@ body {
     background-color: black;
     color: white;
 }
-1
+
 .inner{
     margin-left: auto;
     margin-right: auto;
@@ -102,14 +102,14 @@ body {
     font-size: calc(12px + 16*(10vw/1280));
 }
 
-@media (min-width: 767px){
- .text-social p{
+@media (min-width: 389px){
+p, h3, h4, .info{
   font-size: calc(12px + (16 * 0.7) * ((100vw - 320px) / 1280));
  }
 }
 
 @media (max-width: 388px){
-.nav-link{
+.nav-link, h3, h4, p{
     font-size: calc(10px + (16 * 0.7) * ((100vw - 320px) / 1280));
 }}
 
@@ -179,10 +179,22 @@ body {
     margin-right: 7%;
 }
 
-
 /* Fonts */
-li{
+li, h3{
     font-family: 'Bellota', 'Arial', sans-serif;
 }
 
+.section-container{
+    padding: 1%;
 
+    width: 100%;
+    height: auto;
+
+}
+
+.section-container-inner{
+    padding: 2%;
+    margin-left: 15%;
+    margin-right: 15%;
+
+}

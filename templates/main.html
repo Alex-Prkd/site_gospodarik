@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %} Главная страница {% endblock %}
+
+{% block quote_on_main_page %}
+    <section class="container home text-center">
+        <p>Текст</p>
+    </section>
+{% endblock %}
+
+{% block main %}
+    <section class="gallery-section">
+        <div class="container-fluid">
+            <div class="row g-1 justify-content-center gallery">
+                {% for image in images %}
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">
+                    <div class="gallery-item h-100">
+                        <a href="static/img/photos/{{ image }}" data-fancybox="">
+<!--                            Адаптивная загрузка изображений доделать-->
+                            <img src="static/img/photos/{{ image }}" loading="lazy" height="" width="" decoding="async" class="img-class"  alt="">
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{%block footer %}
+    <section id="social" class="container text-white">
+        <div class="text-social">
+            <p>Следите за моими работами в Instagram:</p>
+            <p>@n_gospodarik</p>
+        </div>
+
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <script src="static/js/zoom-img.js"></script>
+{% endblock %}

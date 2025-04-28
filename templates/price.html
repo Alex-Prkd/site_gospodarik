@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block load_css %} <link rel="stylesheet" href="static/css/price_page.css">{% endblock %}
+
+{% block title %} Прайс-лист {% endblock %}
+
+{% block main %}
+<div class="main-container">
+    <div class="section-container">
+        <div class="section-container-inner">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-lg-8" >
+                    <h3 style="text-align:center">Этапы работы до съёмки:</h3>
+                    <p style="text-align:left">Локация</p>
+                    <ul>
+                        <li class="info">1</li>
+                        <li class="info">2</li>
+                    </ul>
+                    <p style="text-align:left">Образ</p>
+                    <ul>
+                        <li class="info">1</li>
+                        <li class="info">2</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-container">
+        <div class="section-container-inner-services">
+            <div class="row g-1 justify-content-center">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                    <div class="img-services">
+                        <img src="static/img/photos/IMG_3708.JPG" loading="lazy" height="" width="" decoding="async" class="img-class"  alt="">
+                        <section>
+                            <h3>О вас</h3>
+                            <ul>
+                                <li class="info">1 час</li>
+                                <li class="info">помощь</li>
+                                <li class="info">фото</li>
+                            </ul>
+                            <p>Стоимость: </p>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                    <div class="test-img">
+                        <img src="static/img/photos/IMG_3708.JPG" loading="lazy" height="240px" width="320px" decoding="async" class="img-class"  alt="">
+                        <section>
+                            <h3>О вас</h3>
+                            <ul>
+                                <li class="info">1 час</li>
+                                <li class="info">помощь</li>
+                                <li class="info">фото</li>
+                            </ul>
+                            <p>Стоимость</p>
+                        </section>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                    <div class="test-img">
+                        <img src="static/img/photos/IMG_3708.JPG" loading="lazy" height="" width="" decoding="async" class="img-class"  alt="">
+                        <section id="test-id">
+                            <h3>О вас</h3>
+                            <ul>
+                                <li class="info">1 час</li>
+                                <li class="info">помощь</li>
+                                <li class="info">фото</li>
+                            </ul>
+                            <p>Стоимость</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-container">
+        <div class="section-container-inner">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                    <h3 style="text-align: center"><b>внимание!</b></h3>
+                    <h3 style="text-align: center">если вам нужен видеоролик, сообщите мне пожалуйста заранее стоимость видеоролика, продолжительностью до 1 минуты — 2 000₽</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container-photo"></div>
+
+
+    <div class="section-container">
+        <div class="section-container-inner">
+            <div class="row ">
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <h4>Дополнительная информация:</h4>
+                    <p class="info">Авторский вкус</p>
+
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <h4>Скидка:</h4>
+                    <p class="info">инфо по скидке</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <div class="section-container-inner">
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="label"></div>
+                </div>
+            </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    <section id="social" class="container">
+        <div class="text-social">
+            <p><b>Заказать фотосъёмку</b></p>
+        </div>
+        <p style="font-size: 15px; text-align:center;">Для того, чтобы забронировать съемку, напишите мне пожалуйста в любом удобном для вас мессенджере.</p>
+        <div class="btn-container">
+            <a href="" class="btn btn-secondary">Заказать</a>
+        </div>
+    </section>
+{% endblock %}
