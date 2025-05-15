@@ -19,5 +19,5 @@ def price_page():
 
 def review_page():
     return render_template(
-        "reviews_page.html"
+        "reviews.html"
     )
