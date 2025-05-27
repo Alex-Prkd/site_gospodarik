@@ -21,3 +21,9 @@ def review_page():
     return render_template(
         "reviews.html"
     )
+
+
+def contacts_page():
+    return render_template(
+        "contacts.html"
+    )

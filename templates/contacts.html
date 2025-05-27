@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block load_css %} <link rel="stylesheet" href="static/css/contacts_page.css">{% endblock %}
+
+{%block title %} Контакты {% endblock %}
+
+
+{% block main %}
+<div class="main-container">
+    <div class="welcome-info">
+        <div class="row">
+            <div class="col-6">
+                <div class="canvas-container">
+                    <canvas id="contact-canvas" width="400" height="400" class="container-canvas">
+                        <img id="contact-image" src="static/img/link/UVBMCELSypE.jpg">
+                    </canvas>
+                </div>
+            </div>
+            <div class="col-6">
+                <p class="about-contact">Привет!
+                Меня зовут Гришина Женя. Я фотограф и моё основное направление — женский портрет и семейные истории.
+                «Тепло», «искренность», «свобода», «лёгкость», «чувственность»  — слова, которые описывают мои фотографии. Если вам близки эти ценности и вы не боитесь показывать себя настоящих, то нам точно с вами по пути.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="screensaver"></div>
+
+
+    <div class="section-container-about">
+        <div class="section-container-about-inner">
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <section class="info-my-contact">
+                        <h3>Фотограф Господарик Надежда</h3>
+                        <h8>Чтобы связаться со мной заполните форму, напишите мне в соц.сетях или позвоните по телефону</h8>
+                        <h3>8 (917) 216 7338</h3>
+                    </section>
+                </div>
+
+                <div class="col-sm-6 col-md-6">
+                    <section class="form-contact-me">
+                        <form action="" method="post">
+                            <fieldset>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="name" placeholder="Ваше имя">
+                                </div>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="email" placeholder="Контактный телефон или email">
+                                </div>
+                                <div class="input-group">
+                                    <textarea placeholder="Ваше сообщение" name="message" rows="7"></textarea>
+                                </div>
+                                <div class="input-group">
+                                        <button class="btn btn-dark">Отправить</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="static/js/contacts_avatar.js"></script>
+{% endblock %}

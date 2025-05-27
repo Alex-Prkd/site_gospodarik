@@ -1,3 +1,7 @@
+:root{
+    --input-bg-color: #000005;
+}
+
 body {
     background-color: black;
     color: white;
@@ -13,16 +17,13 @@ body {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+    }
 
 .logo-img{
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-
-}
-
-
 }
 
 .logo-link{
@@ -33,7 +34,6 @@ body {
     height: 50px;
 }
 
-
 .btn-div{
     height: 100px;
     width: 50px;
@@ -42,7 +42,6 @@ body {
     bottom: 5%;
     right: 2%;
 }
-
 
 .TopBtn{
     position: absolute;
@@ -56,10 +55,8 @@ body {
     border-radius: 100%;
     display: none;
     opacity: 0.5;
-
     position:relative;
     margin: 5%;
-
 }
 
 
@@ -102,13 +99,13 @@ body {
 }
 
 @media (min-width: 389px){
-p, h3, h4, .info{
+p, h3, h4, h8, .info{
   font-size: calc(12px + (16 * 0.7) * ((100vw - 320px) / 1280));
   }
 }
 
 @media (max-width: 388px){
-.nav-link, h3, h4, p{
+.nav-link, h3, h4, h8, p{
     font-size: calc(10px + (16 * 0.7) * ((100vw - 320px) / 1280));
     }
 }
@@ -180,7 +177,7 @@ p, h3, h4, .info{
 }
 
 /* Fonts */
-li, h3, p{
+li, h3,h8, p{
     font-family: 'Bellota', 'Arial', sans-serif;
 }
 
@@ -199,4 +196,36 @@ li, h3, p{
 
 .main-container{
     height: auto;
+}
+
+textarea{
+    background: var(--input-bg-color);
+    color: #fff;
+    width: 100%;
+    font-size: 12px;
+    resize: none;
+}
+
+input[type="text"]{
+    background: var(--input-bg-color);
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+input[type="text"]:focus {
+    outline: var(--input-bg-color);
+    outline-offset: 3px;
+    background: var(--input-bg-color);
+    color: #fff;
+}
+
+.input-group{
+    padding: 15px;
+}
+
+.form-control::placeholder{
+    font-size: 12px;
+    color: #fff;
 }
