@@ -7,14 +7,14 @@ from db.models.base_template import MySocialLink
 from db.models.contact_page_table import PreviewText, ContactInfo
 
 from db.models.main_page import MainTable
-from db.models.price_page_db import Discount, AdditionalInfo, Fashion, Location, \
-    InfoService, Service, MyCondition, ConditionVideo
+from db.models.price_page_db import Discount, AdditionalInfo, InfoService, Service, MyCondition, ConditionVideo, \
+    Information, BeforeWork
 from db.models.review_page_table import Reviews
 
 
 class CreateEngineSession:
     def __init__(self):
-        self.engine = create_engine("sqlite:///db/information.db", echo=True)
+        self.engine = create_engine("sqlite:///db/information.db")
         self.base: DeclarativeBase = Base()
 
     def create_session(self) -> sessionmaker:

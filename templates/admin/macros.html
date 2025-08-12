@@ -1,0 +1,138 @@
+{% macro form_macro(msg, title, id_service, url="") %}
+        <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background:black;">
+                <div class="modal-header">
+                    {{msg}}: {{ title }}
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3>Данные</h3>
+                                <div class="input-group">
+                                    <textarea placeholder="Описание" rows="7"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark">Сохранить изменения</button>
+                </div>
+            </div>
+        </div>
+{% endmacro %}
+
+
+{% macro form_list_elements(msg, title, url="", list_data='') %}
+    <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
+        <div class="modal-content" style="background:black;">
+            <div class="modal-header">
+                {{msg}}: {{ title }}
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Данные</h3>
+                            <div class="input-group">
+                                {% for item in list_data %}
+                                    <div style="width:100%; height: auto;">
+                                        <p><input type="radio" name="id-{{item}}" style="margin-right:10px;">
+                                        {{ item }}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark">{{msg}}</button>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro create_service(msg, title, url="", list_data='') %}
+    <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
+        <div class="modal-content" style="background:black;">
+            <div class="modal-header">
+                {{msg}}
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="input-group" id="input-group">
+                                <input class="col-8" type="text" placeholder="Название">
+                            </div>
+                            <div id="textarea-div">
+                                <div class="col-12">
+                                    <textarea rows="5" placeholder="Описание"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button id="addTextareaBtn" class="btn btn-secondary" onclick="addTextArea('col-12')">Добавить описание</button>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="position-relative my-relative">
+                                <div class="btn-container">
+                                    <div class="btn-container-inner">
+                                        <div class="avatar-btn">
+                                            <button type="button" class="btn btn-dark">Выбрать фото</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark">{{msg}}</button>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+<!--{% macro EditAvatarPhoto() %}-->
+<!--        <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">-->
+<!--            <div class="modal-content" style="background: black;">-->
+<!--                <div class="modal-header">-->
+<!--                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <div class="container">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-6">-->
+<!--                                <div class="position-relative my-relative">-->
+<!--                                    <div class="btn-container">-->
+<!--                                        <div class="btn-container-inner">-->
+<!--                                            <label class="input-file">-->
+<!--                                                <input type="file" id="editAvatar" name="file" multiple accept="image/*">-->
+<!--                                                <span class="input-file-btn">Выберите файл</span>-->
+<!--                                            </label>-->
+
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-6">-->
+<!--                                <div class="input-file-title">-->
+<!--                                    <span class="input-file-text" id="test_span"></span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-dark">Сохранить изменения</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--{% endmacro %}-->

@@ -1,0 +1,128 @@
+{% extends "/admin/base.html" %}
+
+{% block title %} Главная страница {% endblock %}
+
+{% block load_css %}
+    <style>
+        .flash-message {
+            padding: 10px;
+            background-color: #3ea4ed;
+            color: white;
+            border-radius: 5px;
+            margin: 10px 0;
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+        }
+        .fade-out{
+            opacity: 0;
+            }
+    </style>
+    <link rel="stylesheet" href="../static/css/admin_main_page.css">
+{% endblock %}
+
+{% block quote_on_main_page %}
+    <form method="post" action="/admin/" style="text-align: center;">
+        {{ preview_form.csrf_token() }}
+        {{ preview_form.text(style="height:200px; width:75%;", placeholder=preview_form.text.description) }}
+        <br>
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+            <div id="flashMessage" class="flash-message">
+                <div >{{ message }}</div>
+            </div>
+            {% endfor %}
+        {% endwith %}
+        <div style="text-align:center; margin-bottom: 5%;">
+            <input type="submit" value="Сохранить" class="btn btn-success" accept="image/jpeg" >
+        </div>
+    </form>
+{% endblock %}
+
+{% block main %}
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <form method="post" action="/admin/add_new_photo/" enctype="multipart/form-data" id="addPhotoForm">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="input-file-row d-grid col-6 mx-auto">
+                <label class="input-file new-photo">
+                    <input type="file" id="btn_add_photo" name="file[]" multiple accept="image/*">
+                    <span>Добавить фото</span>
+                </label>
+                <div class="input-file-list"></div>
+            </div>
+            <div class="input-file-row d-grid col-6 mx-auto">
+                <input class="btn btn-success" type="submit" id="submit_save" value="Отправить" onclick="sendPhotoTest()" disabled style="margin-bottom: 12px;">
+            </div>
+        </form>
+    </div>
+    <section class="gallery-section">
+        <div class="container-fluid">
+            <div class="row g-1 justify-content-center gallery">
+                {% for image in images %}
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">
+                    <form method="post" action="/admin/">
+                        <input type="hidden" id="csrf_token" value="{{ csrf_token() }}">
+                        <div class="gallery-item h-100">
+                            <a href="../static/img/photos/{{ image }}" data-fancybox="">
+                                <img src="../static/img/photos/{{ image }}" height="2400px" width="1600px" decoding="async" class="img-class"  alt=""
+                                            srcset="../static/img/photos/{{ image }} 1400w,
+                                            ../static/img/middle_size/{{ image }} 1280w,
+                                            ../static/img/small_size/{{ image }} 960w
+                                            "
+                                >
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <p>{{ image }}</p>
+                            <input class="btn btn-danger" type="button" value="Удалить" onclick="removePhoto('{{image}}')">
+                        </div>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+    <form method="post" action="/admin/" class="container text-white">
+        <div class="text-social">
+            {{ edit_info_footer.csrf_token() }}
+
+            {{ edit_info_footer.follow_me.label }}
+            {{ edit_info_footer.follow_me(style="height:100px;", placeholder=edit_info_footer.follow_me.description) }}
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            {{ edit_info_footer.label }}
+            {{ edit_info_footer.save_btn(class="btn btn-success") }}
+        </div>
+        {% if edit_info_footer.errors %}
+            {{edit_info_footer.errors }}
+        {% endif %}
+    </form>
+    <form method="post" action="/admin/" class="container text-white">
+        <div class="text-social">
+            {{ edit_link_footer.csrf_token() }}
+
+            {{ edit_link_footer.link.label }}
+            {{ edit_link_footer.link(placeholder=edit_link_footer.link.description) }}
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            {{ edit_link_footer.label }}
+            {{ edit_link_footer.save_btn(class="btn btn-success") }}
+        </div>
+    </form>
+{% endblock %}
+
+
+
+{% block scripts %}
+    <script>
+        setTimeout(function() {
+        document.getElementById('flashMessage').classList.add('fade-out');
+        }, 2000);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../static/js/admin/add_new_photo.js"></script>
+    <script src="../static/js/admin/remove_photo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <script src="../static/js/zoom-img.js"></script>
+{% endblock %}

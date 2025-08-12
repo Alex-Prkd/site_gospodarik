@@ -1,0 +1,253 @@
+{% extends "admin/base.html" %}
+{% from "admin/macros.html" import form_macro,form_list_elements, create_service %}
+
+{% block load_css %} <link rel="stylesheet" href="../static/css/price_page.css">{% endblock %}
+
+{% block title %} Прайс-лист {% endblock %}
+
+{% block main %}
+
+<div id="resultMessageRemoveService" class="alert alert-info mt-3" style="display: none;"></div>
+
+<div class="section-container">
+        <div class="section-container-inner-services">
+            <div class="row">
+                <div class="" style="margin-bottom:20px; text-align:center;">
+                    <button class="btn btn-primary col-4" data-bs-target="#addServiceModal" data-bs-toggle="modal">Добавить услугу</button>
+                    <div class="modal" id="addServiceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
+                        {{ create_service("Добавить услугу","О вас", "id_service-1") }}
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row g-2 justify-content-center">
+
+                <form data-id="test_id" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" method="post" action="/admin/price">
+                    <input type="hidden" id="csrf_token" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="img-services">
+                        <div>
+                            <img src="../static/img/photos/IMG_9519_big.JPG" loading="lazy" height="2400px" width="1600px" decoding="async" class="img-class" alt="">
+                            <input type="submit" value="Изменить фото"  class="btn btn-info d-grid gap-2 col-6 mx-auto">
+                        </div>
+                            <h3>
+                                <input type="text" data-name="О вас" placeholder="О вас">
+                            </h3>
+                            <ul>
+                                <li class="info"><textarea id="textarea_id" name="id_db" rows="4"  placeholder="• помощь в подготовке к съемке (подбор локации и одежды)"></textarea></li>
+                                <li class="info"><textarea id="textarea_id_1" name="id_db" rows="4"  placeholder="• от 50 фото в цветокоррекции и лёгкой ретуши"></textarea></li>
+                            </ul>
+                            <p class="info-price">Стоимость: <input type="text" placeholder="7500"> руб.</p>
+                            <div>
+                                <input type="submit" name="save" style="margin-bottom:4px;" value="Сохранить изменения" class="btn btn-primary col-12">
+                            </div>
+                            <div>
+                                <div>
+                                    <button class="col-12 btn btn-success" style="margin-bottom:4px;" data-bs-toggle="modal" data-bs-target="#addDescriptionModal" form="">Добавить описание</button>
+                                    <div class="modal" id="addDescriptionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        {{ form_macro("Добавить описание","О вас", "id_service-1") }}
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="col-12 btn btn-danger" data-bs-toggle="modal" style="margin-bottom:4px;" data-bs-target="#rmDescriptionModal" form="">Удалить описание</button>
+                                    <div class="modal" id="rmDescriptionModal" tabindex="-1" aria-labelledby="rmModalLabel" aria-hidden="true">
+                                        {{ form_list_elements("Удалить описание","О вас", "id_service-1", ['12','2a','332']) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button onclick="removeServiceModal('О вас')" style="margin-bottom:4px;" type="button" class="btn btn-danger col-12">Удалить услугу</button>
+                            </div>
+                    </div>
+                </form>
+
+                <form class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" method="post" action="/admin/price/">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="img-services">
+                        <img src="../static/img/photos/IMG_9536_big.JPG" loading="lazy" height="2400px" width="1600px" decoding="async" class="img-class"  alt="">
+                        <h3>О вашей любви </h3>
+                        <ul>
+                            <li class="info">• съемка в течении 1 часа</li>
+                            <li class="info">• помощь в подготовке к съемке (подбор локации и одежды)</li>
+                            <li class="info">• от 60 фото в цветокоррекции и лёгкой ретуши</li>
+                            <li class="info">• фото моментальной печати в подарок</li>
+                        </ul>
+                        <p class="info-price">Стоимость: 8500</p>
+                    </div>
+                </form>
+
+                <form class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" method="post" action="/admin/price/">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="img-services">
+                        <img src="../static/img/photos/IMG_9521_big.JPG" loading="lazy" height="2400px" width="1600px" decoding="async" class="img-class"  alt="">
+                            <h3>О вашей семье</h3>
+                            <ul>
+                                <li class="info">• съемка в течении 1 часа</li>
+                                <li class="info">• помощь в подготовке к съемке (подбор локации и одежды)</li>
+                                <li class="info">• от 80 фото в цветокоррекции и лёгкой ретуши</li>
+                                <li class="info">• фото моментальной печати в подарок</li>
+                            </ul>
+                            <p class="info-price">Стоимость: 10000</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+
+
+<div class="main-container">
+    <div class="section-container">
+        <div class="section-container-inner">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-lg-8" >
+
+
+                    <h3 style="text-align:center">Этапы работы до съёмки:</h3>
+                    <form method="post" action="/admin/price">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <p style="text-align:left">
+                            <input name="info_work_name" type="text" placeholder="Локация">
+                        </p>
+                        <ul>
+                            <li class="info">
+                                <textarea name="info_work_maybe_add_id" rows="4" id="new_id" placeholder="• Я предлагаю провести съемку: дома, в студии или на природе. Все зависит от вашего желания и времени года.  "></textarea>
+                                <input class="col-5 btn btn-danger" type="submit" name="add_service" value="Удалить улсловие">
+                            </li>
+                            <li class="info">• Если вы выбираете провести фотосъёмку дома, я прошу прислать фото комнат, чтобы оценить световые условия. Если студию — присылаю фото залов, в которых я обычно снимаю. Если на природе, соответственно, фото красивых живописных мест. </li>
+                        </ul>
+                        <div>
+                            <div style="text-align:center; margin-bottom:4px;">
+                                <input class="col-6 btn btn-primary" onclick="saveEditBeforeWork('{{ csrf_token() }}')" type="button" value="Сохранить изменения" >
+                            </div>
+                        </div>
+                        <div>
+                            <div style="text-align:center; margin-bottom:4px;">
+                                <input class="col-5 btn btn-primary" type="submit" name="add_service" value="Добавить улсловие">
+                            </div>
+                        </div>
+                        <div>
+                            <div style="text-align:center; margin-bottom:4px;">
+                                <input class="col-6 btn btn-danger" type="submit" name="add_service" value="Удалить (этап)">
+                            </div>
+                        </div>
+                        <p style="text-align:left">Образ</p>
+                        <ul>
+                            <li class="info">• Отправляю свой гайд, где прописаны все важные моменты, на которые стоит обратить внимание + примеры образов  </li>
+                            <li class="info">• После прочтения гайда прошу прислать фото одежды, которая у вас есть, исходя из моих рекомендаций</li>
+                            <li class="info">• Составляю из ваших фото различные визуальные комбинации образов для всех членов семьи </li>
+                            <li class="info">• Если каких-то вещей не хватает, я предлагаю воспользоваться моим небольшим фотогардеробом</li>
+                        </ul>
+                    </form>
+                    <div style="text-align:center;">
+                        <input class="btn btn-primary" type="submit" name="add_service" value="Добавить Этап">
+                    </div>
+                    <form method="post" action="/admin/price">
+                        {{ condition_form.csrf_token() }}
+                        {{ condition_form.condition(class="info-price", placeholder=condition_form.condition.description, rows=5)  }}
+                        <div class="row" style="margin-bottom:4%">
+                            <div class="col-4">{{ condition_form.save_btn(class="btn btn-primary") }}</div>
+                        </div>
+                    </form>
+                    <form method="post" action="/admin/price">
+                        {{ za_sutky.csrf_token() }}
+                        <p style="text-align:left">{{ za_sutky.condition(placeholder=za_sutky.condition.description) }}</p>
+                        {{ za_sutky.save_btn(class="btn btn-primary") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-container">
+        <div class="section-container-inner">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12">
+
+                    <form method="post" action="/admin/price">
+                        {{ condition_video.csrf_token() }}
+                        <h3 style="text-align: center"><b>внимание!</b></h3>
+                        <h3 style="text-align: center">{{ condition_video.text(placeholder=condition_video.text.description) }}</h3>
+                        <div style="text-align: center">{{ condition_video.save_btn(class="btn btn-primary") }}</div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--    Можно ли переопределять? здесь изменение фото-->
+    <div class="section-container-photo"></div>
+
+
+    <div class="section-container">
+        <div class="section-container-inner">
+            <div class="row">
+
+                <form class="col-sm-8" method="post" action="/admin/price">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <h4>Дополнительная информация:</h4>
+                    <div>
+                        <textarea class="info" name="id_db" rows="3" placeholder="Записываясь ко мне на съемку, вы принимаете мой авторский стиль обработки"></textarea>
+                        <input class="btn btn-danger" type="button" formaction="#" formmethod="post" value="Удалить">
+                    </div>
+                    <p class="info">Я не делаю пластику лица и тела, только лёгкая ретушь, которая никак не меняет вашу внешность! </p>
+                    <p class="info">Я снимаю только с естественным дневным светом: на природе, у вас дома, либо в студиях с минимальным количеством декора</p>
+                    <p class="info">Фотографии передаются через персональную фотогалерею</p>
+                    <p class="info">Срок обработки фотографий  10-14 дней</p>
+                    <p class="info">Исходный материал не отдаю, отбор делаю самостоятельно</p>
+                    <p class="info">Перенос даты возможен не более 2х раз </p>
+                    <p class="info">Бронирование осуществляется только после перевода задатка 2000₽  (задаток не возвращается, если я уже подобрала вам студию и дала рекомендации по образам — это часть моей работы)</p>
+                    <p class="info">О конфиденциальности съёмки нужно предупредить заранее, на этапе подготовки</p>
+                    <p class="info">Аренда локации оплачивается отдельно</p>
+                    <p class="info">В случае выезда в район/область, а так же в Энгельс или заводской район, к стоимости прибавляются расходы на дорогу</p>
+                    <input class="btn btn-primary" type="submit" value="Добавить запись">
+                    <input class="btn btn-primary" type="submit" value="Соханить">
+                </form>
+
+                <form class="col-sm-4" action="/admin/price" method="post" name="name" id="id" title="title">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <h4>Скидка:</h4>
+                    <div>
+                        <textarea class="info" rows="3" name="info_discount" placeholder="если вы были у меня на съемке более 2х раз"></textarea>
+                        <input class="btn btn-danger" type="button" formaction="#" formmethod="post" value="Удалить">
+                    </div>
+                    <p class="info">не распространяется на фотодни  </p>
+                    <input class="btn btn-primary" type="submit" value="Добавить запись">
+                    <input class="btn btn-primary" type="submit" value="Сохранить">
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <div class="section-container-inner">
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="label"></div>
+                </div>
+            </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    <section id="social" class="container">
+        <form method="post" action="/admin/price">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="text-social">
+                <p><b>Заказать фотосъёмку</b></p>
+            </div>
+            <p style="font-size: 15px; text-align:center;"><textarea rows="3" name="zakaz" placeholder="Для того, чтобы забронировать съемку, напишите мне пожалуйста в любом удобном для вас мессенджере."></textarea></p>
+            <input class="btn btn-primary" type="submit" name="save" value="Сохранить" data-title="дата-тайтл">
+        </form>
+    </section>
+{% endblock %}
+
+
+
+{% block scripts %}
+        <script src="../static/js/price_page_func.js"></script>
+{% endblock %}
+
+
+

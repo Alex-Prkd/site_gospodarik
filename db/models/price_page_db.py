@@ -17,20 +17,33 @@ class Service(Base):
 
 
 class InfoService(Base):
-    __tablename__ = "info service"
+    __tablename__ = "info_service"
     text: Mapped[str] = mapped_column(String())
     service_id: Mapped[int] = mapped_column(ForeignKey("service.id"))
     service: Mapped["Service"] = relationship(back_populates="info", lazy="immediate")
 
 
-class Location(Base):
-    __tablename__ = "location"
-    text: Mapped[str] = mapped_column(String())
+class BeforeWork(Base):
+    __tablename__ = "before_work"
+    title: Mapped[str] = mapped_column(String())
+    info_to_work: Mapped[List["Information"]] = relationship(back_populates="work", lazy="immediate")
 
 
-class Fashion(Base):
-    __tablename__ = "fashion"
+class Information(Base):
+    __tablename__ = "info_work"
     text: Mapped[str] = mapped_column(String())
+    work_id: Mapped[int] = mapped_column(ForeignKey("before_work.id"))
+    work: Mapped["BeforeWork"] = relationship(back_populates="info_to_work", lazy="immediate")
+
+
+# class Location(Base):
+#     __tablename__ = "location"
+#     text: Mapped[str] = mapped_column(String())
+#
+#
+# class Fashion(Base):
+#     __tablename__ = "fashion"
+#     text: Mapped[str] = mapped_column(String())
 
 
 class MyCondition(Base):

@@ -4,7 +4,7 @@
 
 {% block quote_on_main_page %}
     <section class="container home text-center">
-        <p>Текст</p>
+        <p>{{ quote }}</p>
     </section>
 {% endblock %}
 
@@ -17,9 +17,9 @@
                     <div class="gallery-item h-100">
                         <a href="static/img/photos/{{ image }}" data-fancybox="">
                             <img src="static/img/photos/{{ image }}" height="2400px" width="1600px" decoding="async" class="img-class"  alt=""
-                                        srcset="static/img/photos/{{ image[:8] }}_big.jpg 1400w,
-                                        static/img/main_images_mobile/{{ image[:8] }}_middle.jpg 1280w,
-                                        static/img/main_images_mobile/{{ image[:8] }}_little.jpg 960w
+                                        srcset="static/img/photos/{{ image }} 1400w,
+                                        static/img/middle_size/{{ image }} 1280w,
+                                        static/img/small_size/{{ image }} 960w
                                         "
                             >
                         </a>
@@ -33,9 +33,9 @@
 
 {%block footer %}
     <section id="social" class="container text-white">
-        <div class="text-social">
-            <p>Следите за моими работами в Instagram:</p>
-            <p>@n_gospodarik</p>
+        <div class="text-social" >
+            <p>{{ text_footer }}</p>
+            <p>{{ link_footer }}</p>
         </div>
 
     </section>

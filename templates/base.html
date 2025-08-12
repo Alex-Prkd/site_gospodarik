@@ -17,8 +17,8 @@
     {% block load_css %}{% endblock %}
 </head>
 <body>
-<header class="header-black">
-    <nav class="navbar navbar-expand navbar-dark bg-black fixed-top">
+<header>
+    <nav class="navbar navbar-expand navbar-light bg-light fixed-top">
         <div class="container-md ">
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto mr-auto">
@@ -49,7 +49,7 @@
         <div class="btn-social-link">
             <a href="" class="social-link">
                 <span class="tooltip-text">Связь со мной</span>
-                <img src="static/img/link/UVBMCELSypE.jpg" class="logo-link">
+                <img src="static/img/link/{{ avatar }}" class="logo-link">
             </a>
         </div>
     </div>
@@ -58,8 +58,8 @@
     {% block footer %}{% endblock %}
     <div class="box-social">
             <ul class="link-social">
-                <li><a class="btn btn-dart" href="https://telegram.me/username" target="_blank"><i class="bi bi-telegram"></i></a></li>
-                <li><a class="btn btn-dart" href="https://instagram.com/username" target="_blank"><i class="bi bi-instagram"></i></a></li>
+                <li><a class="btn btn-dart" href="{{ telegram }}" target="_blank"><i class="bi bi-telegram"></i></a></li>
+                <li><a class="btn btn-dart" href="{{ instagram }}" target="_blank"><i class="bi bi-instagram"></i></a></li>
             </ul>
         </div>
 </footer>

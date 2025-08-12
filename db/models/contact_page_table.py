@@ -5,10 +5,10 @@ from db.models import Base
 
 
 class PreviewText(Base):
-    __tablename__ = "preview text"
+    __tablename__ = "preview_text_contact_page"
     text: Mapped[str] = mapped_column(String())
 
 
 class ContactInfo(Base):
-    __tablename__ = "contact info"
+    __tablename__ = "contact_info_contact_page"
     text: Mapped[str] = mapped_column(String())
