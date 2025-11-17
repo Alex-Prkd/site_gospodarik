@@ -2,34 +2,72 @@ import os
 
 from flask import request, jsonify, redirect
 
-from admin.ConvertSizeIMG import CreateCopySmallSizeIMG
+from admin.WorkWithImgServices.ConvertSizeIMG import CreateCopySmallSizeIMG
+from admin.WorkWithImgServices.RemovePhotoService import RemoveImages
+from config import PathImg
+from db.write import WriteQuote, WriteInfoFooter, WriteLinkSocial
 
 
 def add_new_photo():
-    response = request.files["file[]"]
-    path_photo = os.path.join(os.path.abspath("static/img/photos"))
-    response.save(os.path.join(path_photo, response.filename))
-    _ = CreateCopySmallSizeIMG(response.filename, path_photo)   # Создаёт копии меньшего размера для телефонов
+    data = request.files["file[]"]
+    path_big_img, path_middle_img, path_small_size = PathImg.PhotosMainPage()
+    data.save(os.path.join(path_big_img, data.filename))
+    CreateCopySmallSizeIMG().createMobileIMG(
+        name_img=data.filename,
+        path_big_img=path_big_img,
+        path_middle_img=path_middle_img,
+        path_small_img=path_small_size
+    )
     return redirect("/admin/")
 
 
 def remove_photo_view():
-    response = request.get_json()
-    path = os.path.abspath(f"static/img/photos/{response['image']}")
-    path_middle = os.path.abspath(f"static/img/middle_size/{response['image']}")
-    path_small = os.path.abspath(f"static/img/small_size/{response['image']}")
-    os.remove(os.path.abspath(path))
-    os.remove(os.path.abspath(path_middle))
-    os.remove(os.path.abspath(path_small))
+    data = request.get_json()
+    path_big_img, path_middle_img, path_small_size = PathImg.PhotosMainPage()
+    RemoveImages().remove(
+        name_img=data["image"],
+        path_big_img=path_big_img,
+        path_middle_img=path_middle_img,
+        path_small_img=path_small_size
+    )
     return jsonify({"status": "ok"}), 200
 
 
 
 def edit_avatar_photo():
-    # Удаляем старую аватарку и сохраняем новую
-    response = request.files["image"]
-    path_avatar = os.path.abspath("static\img\link")
-    old_avatar = os.listdir(path_avatar)[0]
-    os.remove(os.path.join(path_avatar, old_avatar))
-    response.save(os.path.join(path_avatar, response.filename))
+    data = request.files["image"]
+    path = PathImg.Link()
+    RemoveImages.remove_avatar(path=path)
+    data.save(os.path.join(path, data.filename))
     return jsonify({"status": "ok"}), 200
+
+
+def edit_quote():
+    data = request.get_json()
+    WriteQuote().edit_quote(new_quote=data["text"])
+    return jsonify({"status": "ok"}), 200
+
+
+def edit_follow_me_text():
+    data = request.get_json()
+    WriteInfoFooter().edit_info_footer(new_text=data["text"])
+    return jsonify({"status": "ok"}), 200
+
+
+def edit_follow_me_link():
+    data = request.get_json()
+    WriteInfoFooter().edit_link_footer(link=data["link"])
+    return jsonify({"status": "ok"}), 200
+
+
+def edit_link_telegram():
+    data = request.get_json()
+    WriteLinkSocial().edit_telegram(new_telegram=data["link_telegram"])
+    return jsonify({"status": "ok"}), 200
+
+
+def edit_link_instagram():
+    data = request.get_json()
+    WriteLinkSocial().edit_instagram(new_instagram=data["link_instagram"])
+    return jsonify({"status": "ok"}), 200
+

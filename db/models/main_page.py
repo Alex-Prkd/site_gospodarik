@@ -12,4 +12,4 @@ class MainTable(Base):
 class FollowMeText(Base):
     __tablename__ = "follow_me_main_page"
     text: Mapped[str] = mapped_column(String)
-    link: Mapped[str] = mapped_column(String, default="")
+    link: Mapped[str] = mapped_column(String)

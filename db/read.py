@@ -1,20 +1,22 @@
-import logging
-
 from sqlalchemy import select
 
 from db import database
 from db.models.base_template import MySocialLink
+from db.models.contact_page_table import PreviewText
 from db.models.main_page import MainTable, FollowMeText
+from db.models.price_page_db import Service, InfoService, BeforeWork, MyCondition, ConditionVideo, AdditionalInfo, \
+    Discount, OrderPhotoShootText
 
 
 class GetQuote:
     @staticmethod
     def get_text_quote() -> str:
-        print("Получаем текст цитаты")
         session = database.create_session()
         with session() as session_db:
             stmt = select(MainTable).limit(1)
             res: MainTable = session_db.scalars(stmt).one_or_none()
+            if res is None:
+                return "Цитата"
             text = res.text
         return text
 
@@ -22,51 +24,114 @@ class GetQuote:
 class GetInfoFooter:
     @staticmethod
     def get_info() -> str:
-        print("Получаем текст инфо")
         session = database.create_session()
         with session() as session_db:
             stmt = select(FollowMeText).limit(1)
             res: FollowMeText = session_db.scalars(stmt).one_or_none()
         if res is None:
-            return "Тестовые данные"
-        else:
-            return res.text
+            return "Приглашение в соц. сеть"
+        return res.text
 
     @staticmethod
     def get_link() -> str:
-        print("Получаем текст инфо")
         session = database.create_session()
         with session() as session_db:
             stmt = select(FollowMeText).limit(1)
             res: FollowMeText = session_db.scalars(stmt).first()
         if res is None or "":
             return "Тестовые данные"
-        else:
-            return res.link
+        return res.link
 
 
 class GetSocialLink:
     @staticmethod
     def telegram_link() -> str:
-        print("Получаем текст телеграм")
         session = database.create_session()
         with session() as session_db:
             stmt = select(MySocialLink).limit(1)
             res: MySocialLink = session_db.scalars(stmt).one_or_none()
         if res is None:
-            return "Тестовые данные"
-        else:
-            return res.telegram\
-
+            return "Ссылка на тг"
+        return res.telegram
 
     @staticmethod
     def instagram_link() -> str:
-        print("Получаем текст инстаграм")
         session = database.create_session()
         with session() as session_db:
             stmt = select(MySocialLink).limit(1)
             res: MySocialLink = session_db.scalars(stmt).one_or_none()
         if res is None:
-            return "Тестовые данные"
-        else:
-            return res.instagram
+            return "Ссылка на инсту"
+        return res.instagram
+
+
+class GetServices:
+    @staticmethod
+    def all_services():
+        session = database.create_session()
+        with session() as session_db:
+            res = session_db.scalars(select(Service)).all()
+        return res
+
+
+class GetStages:
+    @staticmethod
+    def all():
+        session = database.create_session()
+        with session() as session_db:
+            res = session_db.scalars(select(BeforeWork).order_by(BeforeWork.id)).all()
+        return res
+
+
+class GetMyConditions:
+    @staticmethod
+    def all():
+        session = database.create_session()
+        with session() as session_db:
+            res = session_db.scalars(select(MyCondition)).all()
+        return res
+
+
+class GetConditionVideo:
+    @staticmethod
+    def get():
+        session = database.create_session()
+        with session() as session_db:
+            res = session_db.scalars(select(ConditionVideo)).first()
+        return res
+
+
+class GetAdditionalInfo:
+    @staticmethod
+    def all():
+        session = database.create_session()
+        with session() as session_db:
+            res = session_db.scalars(select(AdditionalInfo)).all()
+        return res
+
+
+class GetDiscountInfo:
+    @staticmethod
+    def all():
+        session = database.create_session()
+        with session() as session_db:
+            res = session_db.scalars(select(Discount)).all()
+        return res
+
+
+class OrderPhotoShootTextDB:
+    @staticmethod
+    def get():
+        session = database.create_session()
+        with session() as session_db:
+            res = session_db.scalar(select(OrderPhotoShootText))
+        return res
+
+
+class PreviewTextContactPage:
+    @staticmethod
+    def get():
+        session = database.create_session()
+        with session() as session_db:
+            res = session_db.scalar(select(PreviewText))
+        return res

@@ -1,6 +1,9 @@
-{% extends "base.html" %}
+{% extends "admin/base.html" %}
 
-{% block load_css %} <link rel="stylesheet" href="static/css/contacts_page.css">{% endblock %}
+{% block load_css %}
+    <link rel="stylesheet" href="../static/css/contacts_page.css">
+    <link rel="stylesheet" href="../static/css/admin_main_page.css">
+{% endblock %}
 
 {%block title %} Контакты {% endblock %}
 
@@ -11,20 +14,25 @@
         <div class="row">
             <div class="col-6">
                 <div class="canvas-container">
-                    <canvas id="contact-canvas" width="400" height="400" class="container-canvas">
-                        <img id="contact-image" src="static/img/link/UVBMCELSypE.jpg">
+                    <canvas id="contact-canvas" width="400" height="400" >
+                        <img id="contact-image" src="../static/img/img_contact_page/avatar.jpg">
                     </canvas>
                 </div>
+                    <label class="input-file d-grid gap-2 col-4 mx-auto my-auto">
+                        <input type="file" name="file[]" accept="image/*" onchange="Test(this)">
+                        <span class="input-file-btn">Изменить</span>
+                    </label>
             </div>
             <div class="col-6">
-                <p class="about-contact">Привет!
-                Меня зовут Гришина Женя. Я фотограф и моё основное направление — женский портрет и семейные истории.
-                «Тепло», «искренность», «свобода», «лёгкость», «чувственность»  — слова, которые описывают мои фотографии. Если вам близки эти ценности и вы не боитесь показывать себя настоящих, то нам точно с вами по пути.
-                </p>
+                <div>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <textarea rows="7" placeholder="{{preview_text}}"></textarea>
+                    <button onclick="changePreview(this)" class="btn btn-success">Изменить</button>
+                </div>
             </div>
         </div>
     </div>
-    <div class="screensaver"></div>
+    <div class="screensaver" style="background-image: url('../static/img/img_contact_page/background.JPG');"></div>
 
 
     <div class="section-container-about">
@@ -68,5 +76,6 @@
 
 
 {% block scripts %}
-    <script src="static/js/contacts_avatar.js"></script>
+    <script src="../static/js/contacts_avatar.js"></script>
+    <script src="../static/js/admin/contact_page/preview_text.js"></script>
 {% endblock %}

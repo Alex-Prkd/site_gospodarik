@@ -21,21 +21,13 @@
 {% endblock %}
 
 {% block quote_on_main_page %}
-    <form method="post" action="/admin/" style="text-align: center;">
-        {{ preview_form.csrf_token() }}
-        {{ preview_form.text(style="height:200px; width:75%;", placeholder=preview_form.text.description) }}
-        <br>
-        {% with messages = get_flashed_messages() %}
-            {% for message in messages %}
-            <div id="flashMessage" class="flash-message">
-                <div >{{ message }}</div>
-            </div>
-            {% endfor %}
-        {% endwith %}
-        <div style="text-align:center; margin-bottom: 5%;">
-            <input type="submit" value="Сохранить" class="btn btn-success" accept="image/jpeg" >
+    <div id="content-quote">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <textarea class="d-grid gap-2 col-6 mx-auto" rows="5" placeholder="{{preview}}"></textarea>
+        <div style="text-align:center; margin-bottom: 5%; margin-top: 1%">
+            <input type="submit" value="Сохранить" class="btn btn-success" onclick="editQuote(this)">
         </div>
-    </form>
+    </div>
 {% endblock %}
 
 {% block main %}
@@ -72,7 +64,7 @@
                             </a>
                         </div>
                         <div class="d-grid gap-2 col-6 mx-auto">
-                            <p>{{ image }}</p>
+
                             <input class="btn btn-danger" type="button" value="Удалить" onclick="removePhoto('{{image}}')">
                         </div>
                     </form>
@@ -82,46 +74,27 @@
         </div>
     </section>
 
-
-    <form method="post" action="/admin/" class="container text-white">
+    <div class="container text-white">
         <div class="text-social">
-            {{ edit_info_footer.csrf_token() }}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <textarea rows="3" placeholder="{{info_footer}}"></textarea>
+            <input type="button" class="btn btn-success" value="Сохранить" onclick="editFollowMeText(this)">
+        </div>
+    </div>
 
-            {{ edit_info_footer.follow_me.label }}
-            {{ edit_info_footer.follow_me(style="height:100px;", placeholder=edit_info_footer.follow_me.description) }}
-        </div>
-        <div class="d-grid gap-2 col-6 mx-auto">
-            {{ edit_info_footer.label }}
-            {{ edit_info_footer.save_btn(class="btn btn-success") }}
-        </div>
-        {% if edit_info_footer.errors %}
-            {{edit_info_footer.errors }}
-        {% endif %}
-    </form>
-    <form method="post" action="/admin/" class="container text-white">
+    <div class="container text-white">
         <div class="text-social">
-            {{ edit_link_footer.csrf_token() }}
-
-            {{ edit_link_footer.link.label }}
-            {{ edit_link_footer.link(placeholder=edit_link_footer.link.description) }}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <textarea rows="3" placeholder="{{link_footer}}"></textarea>
+            <input type="button" class="btn btn-success" value="Сохранить" onclick="editLinkFollowMe(this)">
         </div>
-        <div class="d-grid gap-2 col-6 mx-auto">
-            {{ edit_link_footer.label }}
-            {{ edit_link_footer.save_btn(class="btn btn-success") }}
-        </div>
-    </form>
+    </div>
 {% endblock %}
 
-
-
 {% block scripts %}
-    <script>
-        setTimeout(function() {
-        document.getElementById('flashMessage').classList.add('fade-out');
-        }, 2000);
-    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../static/js/admin/add_new_photo.js"></script>
+    <script src="../static/js/admin/main_page/main_page.js"></script>
     <script src="../static/js/admin/remove_photo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <script src="../static/js/zoom-img.js"></script>

@@ -15,13 +15,12 @@
                 {% for image in images %}
                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">
                     <div class="gallery-item h-100">
-                        <a href="static/img/photos/{{ image }}" data-fancybox="">
-                            <img src="static/img/photos/{{ image }}" height="2400px" width="1600px" decoding="async" class="img-class"  alt=""
-                                        srcset="static/img/photos/{{ image }} 1400w,
-                                        static/img/middle_size/{{ image }} 1280w,
-                                        static/img/small_size/{{ image }} 960w
-                                        "
-                            >
+                        <a href="static/img/photos_main_page/big_size/{{ image }}" data-fancybox="">
+                            <img src="static/img/photos_main_page/big_size/{{ image }}" height="2400px" width="1600px" decoding="async" class="img-class"  alt=""
+                                        srcset="static/img/photos_main_page/big_size/{{ image }} 1400w,
+                                        static/img/photos_main_page/middle_size/{{ image }} 1280w,
+                                        static/img/photos_main_page/small_size/{{ image }} 960w
+                                        ">
                         </a>
                     </div>
                 </div>

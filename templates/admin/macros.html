@@ -1,90 +1,81 @@
-{% macro form_macro(msg, title, id_service, url="") %}
+{% macro edit_avatar() %}
         <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
-            <div class="modal-content" style="background:black;">
+            <div class="modal-content" style="background: #969595e4;">
                 <div class="modal-header">
-                    {{msg}}: {{ title }}
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    <button type="button" onclick="removeFileAvatar(this)" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="position-relative my-relative">
+                                    <div class="btn-container">
+                                        <div class="btn-container-inner">
+                                            <label class="input-file edit-avatar-div">
+                                                <input type="file" id="editAvatar" name="file[]" accept="image/*" onchange="addPreviewAvatar(this)">
+                                                <span class="input-file-btn">Выберите файл</span>
+                                            </label>
+                                        </div>
+                                        <button type="button" name="saveAvatar" class="btn btn-dark" disabled="true" onclick="sendNewAvatar(this)">Сохранить изменения</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 preview-div">
+                                <div class="input-file-preview"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endmacro %}
+
+{% macro add_description(title, service_id) %}
+        <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background: #fff;">
+                <div class="modal-header">
+                    <p>Добавить описание: <b>{{ title }}</b></p>
+                    <button id="closeModal_{{service_id}}" type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Закрыть" onclick="clearNewDescription({{ service_id }})"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
-                                <h3>Данные</h3>
                                 <div class="input-group">
-                                    <textarea placeholder="Описание" rows="7"></textarea>
+                                    <textarea id="textarea_description_{{service_id}}" style="color: black;" placeholder="Описание" rows="7"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-dark">Сохранить изменения</button>
+                    <input type="button" class="btn btn-dark" value="Добавить" onclick="addNewDescription({{ service_id }}, '{{ title }}')">
                 </div>
             </div>
         </div>
 {% endmacro %}
 
 
-{% macro form_list_elements(msg, title, url="", list_data='') %}
-    <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
-        <div class="modal-content" style="background:black;">
-            <div class="modal-header">
-                {{msg}}: {{ title }}
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
+{% macro modal_edit_photo(id, title_service, title_img) %}
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background: #fff;">
+                <div class="modal-header">
+                    <button type="button" id="closeModalEditPhoto" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Закрыть" onclick="removePreviewPhotoService({{id}})"></button>
+                </div>
+                <p>Изменить фото услуги: {{ title_service }}</p>
+                <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
-                            <h3>Данные</h3>
-                            <div class="input-group">
-                                {% for item in list_data %}
-                                    <div style="width:100%; height: auto;">
-                                        <p><input type="radio" name="id-{{item}}" style="margin-right:10px;">
-                                        {{ item }}</p>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark">{{msg}}</button>
-            </div>
-        </div>
-    </div>
-{% endmacro %}
-
-{% macro create_service(msg, title, url="", list_data='') %}
-    <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
-        <div class="modal-content" style="background:black;">
-            <div class="modal-header">
-                {{msg}}
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="input-group" id="input-group">
-                                <input class="col-8" type="text" placeholder="Название">
-                            </div>
-                            <div id="textarea-div">
-                                <div class="col-12">
-                                    <textarea rows="5" placeholder="Описание"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button id="addTextareaBtn" class="btn btn-secondary" onclick="addTextArea('col-12')">Добавить описание</button>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="position-relative my-relative">
-                                <div class="btn-container">
-                                    <div class="btn-container-inner">
-                                        <div class="avatar-btn">
-                                            <button type="button" class="btn btn-dark">Выбрать фото</button>
+                            <div class="input-group container-preview-new-photo-service_{{ id }}">
+                                <div class="col-6">
+                                    <div class="position-relative my-relative">
+                                        <div class="btn-container">
+                                            <div class="btn-container-inner">
+                                                <label class="input-file ">
+                                                    <input type="file" id="inputNewPhotoForService" name="file[]" accept="image/*" onchange="createPreviewIMG({{ id }})">
+                                                    <span class="input-file-btn">Выберите файл</span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -92,47 +83,229 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" onclick="editPhoto('{{ id }}','{{ title_img }}')">Сохранить изменения</button>
+                </div>
+            </div>
+        </div>
+{% endmacro %}
+
+{% macro remove_descriptions(title, service_id, descriptions) %}
+    <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
+        <div class="modal-content" style="background: #fff;">
+            <div class="modal-header">
+                <p>Удалить описание: <br>"{{ title }}"</p>
+                <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Закрыть" onclick="clearCheckBoxCloseModal()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-group">
+                                <div class="input-group_{{service_id}}">
+                                    {% for description in descriptions %}
+                                        <div style="width:100%; height: auto;">
+                                            <p><input type="checkbox" id="{{ description.id }}" style="margin-right:10px;">
+                                            {{ description.text }}</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-dark">{{msg}}</button>
+                <button type="button" class="btn btn-dark" onclick="rmDescriptions(this)">Удалить</button>
             </div>
         </div>
     </div>
 {% endmacro %}
 
-<!--{% macro EditAvatarPhoto() %}-->
-<!--        <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">-->
-<!--            <div class="modal-content" style="background: black;">-->
-<!--                <div class="modal-header">-->
-<!--                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>-->
-<!--                </div>-->
-<!--                <div class="modal-body">-->
-<!--                    <div class="container">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-6">-->
-<!--                                <div class="position-relative my-relative">-->
-<!--                                    <div class="btn-container">-->
-<!--                                        <div class="btn-container-inner">-->
-<!--                                            <label class="input-file">-->
-<!--                                                <input type="file" id="editAvatar" name="file" multiple accept="image/*">-->
-<!--                                                <span class="input-file-btn">Выберите файл</span>-->
-<!--                                            </label>-->
+{% macro create_service() %}
+    <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
+        <div class="modal-content" style="background: #fff;">
+            <div class="modal-header">
+                <p style="color: black;">Добавить услугу</p>
+                <button type="button" onclick="resetFormService(this)" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="input-group"  id="input-group">
+                                <input id="nameService" class="col-8" style="background: white; color: black" type="text" placeholder="Название">
+                            </div>
+                            <div id="textarea-div">
+                                <div class="col-8">
+                                </div>
+                            </div>
+                            <div class="col-6" style="margin-bottom: 1em;">
+                                <button id="addTextareaBtn" class="btn btn-success" onclick="addTextArea('col-8')">Добавить описание</button>
+                            </div>
+                            <div class="col-6">
+                                <input type="number" placeholder="Цена" id="priceNewService" > руб.
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="position-relative my-relative">
+                                <div class="btn-container">
+                                    <div class="btn-container-inner">
+                                        <label class="input-file">
+                                            <input id="newServiceImage" type="file" name="file[]" accept="image/*" onchange="demonstrationPhotoNewService(this)" >
+                                            <span class="input-file-btn">Выберите фото</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="new-photo"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="addNewService(this)" type="button" class="btn btn-dark">Сохранить</button>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
 
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col-6">-->
-<!--                                <div class="input-file-title">-->
-<!--                                    <span class="input-file-text" id="test_span"></span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-dark">Сохранить изменения</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--{% endmacro %}-->
+
+{% macro modal_create_stage() %}
+    <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
+        <div class="modal-content" style="background: #fff;">
+            <div class="modal-header">
+                <p>Добавить новый этап до съёмки"</p>
+                <button type="button" class="btn-close btn-close-black" id="closeModalCreateStage" data-bs-dismiss="modal" aria-label="Закрыть" onclick="cleaningModalCreateStage()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-group">
+                                <input type="text" id="titleStage" placeholder="Название" style="color: black;">
+                            </div>
+                            <div class="input-group">
+                                <div class="col-6 container-textarea">
+                                    <div class="col-12">
+                                        <textarea class="condition" rows="5" name="condition"  placeholder="Условие"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <input class="btn btn-success" type="button" value="Добавить условие" onclick="addTextareaConditionStage()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" onclick="createStage()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+
+{% macro add_condition_stage(stage_id, title) %}
+        <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background: #fff;">
+                <div class="modal-header">
+                    <p>Добавить условие: <b>{{ title }}</b></p>
+                    <button id="closeModalAddCondition" type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Закрыть" onclick="clearNewConditionStage(this)"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-group">
+                                    <textarea id="textarea_condition" style="color: black;" placeholder="Новое условие" rows="7"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-dark" value="Добавить" onclick="addNewConditionStage({{stage_id}}, this)">
+                </div>
+            </div>
+        </div>
+{% endmacro %}
+
+
+{% macro add_my_condition() %}
+        <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background: #fff;">
+                <div class="modal-header">
+                    <p>Новое правило:</p>
+                    <button id="closeModalNewMyCondition" type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Закрыть" onclick="cleaningModalCreateMyCondition(this)"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-group">
+                                    <textarea style="color: black;" rows="7"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-dark" value="Добавить" onclick="addNewCondition(this)">
+                </div>
+            </div>
+        </div>
+{% endmacro %}
+
+
+{% macro add_info_footer() %}
+        <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background: #fff;">
+                <div class="modal-header">
+                    <p>Новая информация:</p>
+                    <button id="closeModalNewInfoFooter" type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Закрыть" onclick="cleaningTextareaInfoFooter(this)"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-group">
+                                    <textarea style="color: black;" rows="7"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-dark" value="Добавить" onclick="addNewInformationFooter(this)">
+                </div>
+            </div>
+        </div>
+{% endmacro %}
+
+
+{% macro add_discount() %}
+        <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background: #fff;">
+                <div class="modal-header">
+                    <p>Новая информация о скидках:</p>
+                    <button id="closeModalNewDiscount" type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Закрыть" onclick="cleaningTextareaDiscount(this)"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-group">
+                                    <textarea style="color: black;" rows="7"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-dark" value="Добавить" onclick="addNewDiscount(this)">
+                </div>
+            </div>
+        </div>
+{% endmacro %}

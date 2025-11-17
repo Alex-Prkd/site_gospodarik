@@ -8,13 +8,13 @@ from db.models.contact_page_table import PreviewText, ContactInfo
 
 from db.models.main_page import MainTable
 from db.models.price_page_db import Discount, AdditionalInfo, InfoService, Service, MyCondition, ConditionVideo, \
-    Information, BeforeWork
+    Information, BeforeWork, OrderPhotoShootText
 from db.models.review_page_table import Reviews
 
 
 class CreateEngineSession:
     def __init__(self):
-        self.engine = create_engine("sqlite:///db/information.db")
+        self.engine = create_engine("sqlite:///db/information.db", echo=True)
         self.base: DeclarativeBase = Base()
 
     def create_session(self) -> sessionmaker:
@@ -22,4 +22,5 @@ class CreateEngineSession:
         return session
 
     def create_db_and_tables(self) -> None:
+        # self.base.metadata.drop_all(bind=self.engine)
         self.base.metadata.create_all(bind=self.engine)

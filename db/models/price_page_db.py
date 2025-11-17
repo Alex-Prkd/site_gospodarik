@@ -1,6 +1,6 @@
 from typing import List
 
-from sqlalchemy import String, ForeignKey
+from sqlalchemy import String, ForeignKey, Float
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from db.models import Base
@@ -12,8 +12,9 @@ class Service(Base):
     __tablename__ = "service"
     img: Mapped[str] = mapped_column(String())
     title: Mapped[str] = mapped_column(String(30))
-    price: Mapped[str] = mapped_column(String())
-    info: Mapped[List["InfoService"]] = relationship(back_populates="service", lazy="immediate")
+    price: Mapped[float] = mapped_column(Float())
+    info: Mapped[List["InfoService"]] = relationship(back_populates="service", lazy="immediate",
+                                                     cascade="all, delete-orphan")
 
 
 class InfoService(Base):
@@ -26,24 +27,16 @@ class InfoService(Base):
 class BeforeWork(Base):
     __tablename__ = "before_work"
     title: Mapped[str] = mapped_column(String())
-    info_to_work: Mapped[List["Information"]] = relationship(back_populates="work", lazy="immediate")
+    info_to_work: Mapped[List["Information"]] = relationship(back_populates="work", lazy="immediate",
+                                                             cascade="all, delete-orphan")
 
 
 class Information(Base):
+    # Поменять нащзвания
     __tablename__ = "info_work"
     text: Mapped[str] = mapped_column(String())
     work_id: Mapped[int] = mapped_column(ForeignKey("before_work.id"))
     work: Mapped["BeforeWork"] = relationship(back_populates="info_to_work", lazy="immediate")
-
-
-# class Location(Base):
-#     __tablename__ = "location"
-#     text: Mapped[str] = mapped_column(String())
-#
-#
-# class Fashion(Base):
-#     __tablename__ = "fashion"
-#     text: Mapped[str] = mapped_column(String())
 
 
 class MyCondition(Base):
@@ -63,4 +56,9 @@ class AdditionalInfo(Base):
 
 class Discount(Base):
     __tablename__ = "discount"
+    text: Mapped[str] = mapped_column(String())
+
+
+class OrderPhotoShootText(Base):
+    __tablename__ = "order photo shoot text"
     text: Mapped[str] = mapped_column(String())

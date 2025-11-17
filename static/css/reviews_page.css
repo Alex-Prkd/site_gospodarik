@@ -1,0 +1,74 @@
+.review-photo{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+@media (max-width: 900px){
+.review-photo{
+    /* хз возм. sizes в img... почитать!!!*/
+
+    width: calc(100px + (16 * 0.7) * ((100vw - 320px) / 1280));
+    height: calc(100px + (16 * 0.7) * ((100vw - 320px) / 1280));
+}}
+
+.content-review{
+    height: 100%;
+}
+
+.content-review p{
+    font-size: calc(5px + (16 * 0.7) * ((100vw - 320px) / 1280));
+}
+
+.container-btn-review{
+    margin: 1%;
+    padding-bottom: 1%;
+}
+
+.modal-content{
+    background: var(--input-bg-color);
+}
+
+.my-relative{
+    height: 50%;
+}
+
+.avatar-container{
+    width: 150px;
+    height: 150px;
+}
+
+.avatar-container-inner{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+}
+
+.radius{
+    border-radius: 100%;
+    background: #01191ff7;
+    width: 100%;
+    height: 100%;
+}
+
+.pos-camera{
+    font-size: 70px;
+}
+
+.btn-container{
+    width: 100%;
+    height: 50%;
+    margin-top: 15px;
+}
+
+.btn-container-inner{
+    width: 100%;
+    height: 50%;
+}
+
+.avatar-btn{
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+}
