@@ -1,7 +1,7 @@
 from flask import Flask
 
 from admin.admin_handlers import admin_main_page, admin_price_page, admin_review_page, admin_contacts_page
-from admin.contact_page_views import save_preview_text
+from admin.contact_page_views import save_preview_text, save_preview_avatar, save_background
 from admin.main_views import remove_photo_view, edit_avatar_photo, add_new_photo, edit_quote, edit_follow_me_text, \
     edit_follow_me_link, edit_link_telegram, edit_link_instagram
 from admin.price_views import remove_service, add_service, edit_img_service, edit_title_service, \
@@ -54,6 +54,8 @@ def price_views(app: Flask):
 
 def contact_views(app: Flask):
     app.add_url_rule("/admin/edit_preview_contact_page", methods=["POST"], view_func=save_preview_text)
+    app.add_url_rule("/admin/contacts/new_preview_avatar", methods=["POST"], view_func=save_preview_avatar)
+    app.add_url_rule("/admin/contacts/new_background", methods=["POST"], view_func=save_background)
 
 
 def admin_pages(app: Flask):

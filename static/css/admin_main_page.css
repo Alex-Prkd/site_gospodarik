@@ -26,7 +26,7 @@
 	margin: 0;
 	transition: background-color 0.2s;
 }
-.input-file input[type=file] {
+.input-file input {
 	position: absolute;
 	z-index: -1;
 	opacity: 0;
@@ -36,7 +36,7 @@
 }
 
 /* Focus */
-.input-file input[type=file]:focus + span {
+.input-file input:focus + span {
 	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
 
@@ -49,7 +49,7 @@
 }
 
 /* Disabled */
-.input-file input[type=file]:disabled + span {
+.input-file input:disabled + span {
 	background-color: #eee;
 }
 

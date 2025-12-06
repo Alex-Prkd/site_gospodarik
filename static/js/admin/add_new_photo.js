@@ -45,10 +45,9 @@ function removeFilesItem(target){
 }
 
 
-function sendPhotoTest(){
+function sendPhoto(){
     let csrf = document.getElementById("csrf_token")
     const fileInput = document.getElementById("btn_add_photo");
-    e.preventDefault();
     let formData = new FormData();
     formData.append("image", fileInput.files[0]);
     fetch("/admin/add_new_photo", {

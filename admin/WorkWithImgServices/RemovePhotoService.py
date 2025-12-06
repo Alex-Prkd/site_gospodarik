@@ -25,3 +25,18 @@ class RemoveImages:
         old_avatar = old_avatar[0]
         if os.path.exists(os.path.join(path, old_avatar)):
             os.remove(os.path.join(path, old_avatar))
+
+    @staticmethod
+    def remove_contact_page_preview(path: str, filename: list):
+        if len(filename) == 0:
+            return
+        if os.path.exists(os.path.join(path, filename[0])):
+            os.remove(os.path.join(path, filename[0]))
+
+
+    @staticmethod
+    def remove_contact_page_background(path: str, filename: list):
+        if len(filename) == 0:
+            return
+        if os.path.exists(os.path.join(path, filename[0])):
+            os.remove(os.path.join(path, filename[0]))

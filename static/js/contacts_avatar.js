@@ -3,7 +3,6 @@ const contact_ctx = contact_canvas.getContext('2d');
 const contact_img = document.getElementById('contact-image');
 
 contact_img.onload = function(){
-    console.log("123")
     contact_ctx.beginPath();
     contact_ctx.arc(
             contact_canvas.width / 2,
@@ -32,17 +31,3 @@ contact_img.onload = function(){
 
 
 if (contact_img.complete) contact_img.onload();
-
-
-function Test(target){
-    let file = target.files[0]
-    let reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onloadend = function(){
-        console.log(file)
-        console.log(reader.result)
-    contact_img.src = reader.result
-    }
-    contact_img.onload()
-}
-

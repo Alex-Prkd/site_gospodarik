@@ -12,27 +12,45 @@
 <div class="main-container">
     <div class="welcome-info">
         <div class="row">
+
+
             <div class="col-6">
                 <div class="canvas-container">
                     <canvas id="contact-canvas" width="400" height="400" >
-                        <img id="contact-image" src="../static/img/img_contact_page/avatar.jpg">
+                        <img id="contact-image" src="../static/img/img_contact_page/preview_photo/avatar.jpg">
                     </canvas>
                 </div>
                     <label class="input-file d-grid gap-2 col-4 mx-auto my-auto">
-                        <input type="file" name="file[]" accept="image/*" onchange="Test(this)">
+                        <input id="preview-photo" type="file" name="file[]" accept="image/*" onchange="changeAvatarPhoto(this)">
                         <span class="input-file-btn">Изменить</span>
                     </label>
+                <input class="btn btn-primary d-grid col-3 mx-auto my-1" name="save_image" disabled="true" type="button" onclick="saveNewAvatarPhoto(this)" value="Сохранить">
             </div>
+
+
             <div class="col-6">
                 <div>
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                    <textarea rows="7" placeholder="{{preview_text}}"></textarea>
+                    <textarea rows="7" placeholder="{{ preview_text }}"></textarea>
                     <button onclick="changePreview(this)" class="btn btn-success">Изменить</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="screensaver" style="background-image: url('../static/img/img_contact_page/background.JPG');"></div>
+    <div class="screensaver" style="background-image: url('../static/img/img_contact_page/background/background.JPG');">
+        <div class="row col-md-2 mx-auto">
+            <div class="text-center rounded">
+                <label class="input-file">
+                    <input type="file" name="bg_photo[]" onchange="showPreview(this)" accept="image/*">
+                    <span class="input-file opacity-50">Изменить фото</span>
+                </label>
+                <input class="btn btn-success" type="hidden" name="save" onclick="saveBackground(this)" value="Сохранить">
+                <div class="text-center">
+                    <input class="btn btn-danger" name="removeImg" type="hidden" onclick="removeBackground(this)" value="Отмена">
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="section-container-about">
@@ -76,6 +94,7 @@
 
 
 {% block scripts %}
-    <script src="../static/js/contacts_avatar.js"></script>
+    <script src="../static/js/admin/contact_page/edit_avatar.js"></script>
+    <script src="../static/js/admin/contact_page/edit_background.js"></script>
     <script src="../static/js/admin/contact_page/preview_text.js"></script>
 {% endblock %}
