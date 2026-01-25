@@ -2,8 +2,7 @@ import os
 
 from flask import render_template
 from config import PathImg
-from db.read import GetQuote, GetInfoFooter, GetSocialLink
-
+from db.read import GetQuote, GetInfoFooter, GetSocialLink, ReviewsPage
 
 
 def main_page():
@@ -36,8 +35,10 @@ def price_page():
 
 
 def review_page():
+    reviews = ReviewsPage.get_reviews()
     return render_template(
-        "reviews.html"
+        "reviews.html",
+        reviews=reviews
     )
 
 
