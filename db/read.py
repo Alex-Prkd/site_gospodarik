@@ -2,10 +2,11 @@ from sqlalchemy import select
 
 from db import database
 from db.models.base_template import MySocialLink
-from db.models.contact_page_table import PreviewText
+from db.models.contact_page_table import PreviewText, ContactInfo
 from db.models.main_page import MainTable, FollowMeText
 from db.models.price_page_db import Service, InfoService, BeforeWork, MyCondition, ConditionVideo, AdditionalInfo, \
     Discount, OrderPhotoShootText
+from db.models.review_page_table import Reviews
 
 
 class GetQuote:
@@ -134,4 +135,31 @@ class PreviewTextContactPage:
         session = database.create_session()
         with session() as session_db:
             res = session_db.scalar(select(PreviewText))
+        return res
+
+
+class ContactMeInfoContactPage:
+    @staticmethod
+    def get():
+        session = database.create_session()
+        with session() as session_db:
+            res = session_db.scalar(select(ContactInfo))
+        return res
+
+
+class ReviewsPage:
+    @staticmethod
+    def get_reviews():
+        session = database.create_session()
+        with session() as session_db:
+            # order by - date
+            res = session_db.scalars(select(Reviews).filter_by(active=True)).all()
+        return res
+
+    @staticmethod
+    def get_inactive_reviews():
+        session = database.create_session()
+        with session() as session_db:
+            # order by - date
+            res = session_db.scalars(select(Reviews).filter_by(active=False)).all()
         return res

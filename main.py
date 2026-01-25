@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_wtf import CSRFProtect
 
 from admin.create_admin import admin_pages
@@ -9,10 +9,11 @@ from views.register_handlers import pages
 
 
 
+
+
 def main() -> None:
     app = Flask(__name__)
     app.secret_key = "secret_key"
-
     # app.config["SECRET_KEY"] = "12345"
     csrf = CSRFProtect()
     csrf.init_app(app)

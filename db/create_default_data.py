@@ -1,5 +1,5 @@
 from db.write import WriteQuote, WriteInfoFooter, WriteLinkSocial, ConditionVideoDB, OrderPhotoShootDB, \
-    PreviewTextContactPageDB
+    PreviewTextContactPageDB, TextContactMeContactPageDB
 
 
 def first_data_creation() -> None:
@@ -10,3 +10,4 @@ def first_data_creation() -> None:
     ConditionVideoDB.create_default_condition_video()
     OrderPhotoShootDB.create_default_condition_video()
     PreviewTextContactPageDB.create_default_text()
+    TextContactMeContactPageDB.create_default_tex()

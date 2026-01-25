@@ -1,10 +1,11 @@
+import functools
 import os
 
 from flask import request, jsonify
 
 from admin.WorkWithImgServices.RemovePhotoService import RemoveImages
 from config import PathImg
-from db.write import PreviewTextContactPageDB
+from db.write import PreviewTextContactPageDB, TextContactMeContactPageDB
 
 
 def save_preview_text():
@@ -29,3 +30,23 @@ def save_background():
     RemoveImages.remove_contact_page_background(path_background, background)
     data.save(os.path.join(path_background, "background.jpg"))
     return jsonify({"status": True}), 200
+
+
+def save_title_contact_me():
+    data = request.get_json()
+    TextContactMeContactPageDB.edit_title_text(new_title=data["text"])
+    return jsonify({"status": True}), 200
+
+
+def save_text_contact_me():
+    data = request.get_json()
+    TextContactMeContactPageDB.edit_info(new_text=data["text"])
+    return jsonify({"status": True}), 200
+
+
+def save_number_contact_me():
+    data = request.get_json()
+    TextContactMeContactPageDB.edit_number(new_number=data["number"])
+    return jsonify({"status": True}), 200
+
+

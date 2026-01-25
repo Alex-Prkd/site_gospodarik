@@ -5,7 +5,8 @@ from flask import abort, render_template, request
 from config import PathImg
 from db.models.price_page_db import BeforeWork
 from db.read import GetQuote, GetInfoFooter, GetSocialLink, GetServices, GetStages, GetMyConditions, GetConditionVideo, \
-    GetAdditionalInfo, GetDiscountInfo, OrderPhotoShootTextDB, PreviewTextContactPage
+    GetAdditionalInfo, GetDiscountInfo, OrderPhotoShootTextDB, PreviewTextContactPage, ContactMeInfoContactPage, \
+    ReviewsPage
 from db.write import WriteInfoFooter, WriteQuote, WriteLinkSocial
 
 
@@ -61,14 +62,28 @@ def admin_price_page():
 
 
 def admin_review_page():
-    print(__name__)
-    return abort(502)
+    ImagesPath = PathImg()
+    avatar_title: str = os.listdir(ImagesPath.Link())[0]
+    reviews = ReviewsPage.get_reviews()
+    telegram_link, instagram_link = GetSocialLink.telegram_link(), GetSocialLink.instagram_link()
+    return render_template("/admin/reviews.html",
+                           reviews=reviews,
+                           telegram_link=telegram_link,
+                           instagram_link=instagram_link,
+                           avatar=avatar_title)
 
 
 def admin_contacts_page():
+    ImagesPath = PathImg()
     preview_text = PreviewTextContactPage().get()
+    contact_me_info = ContactMeInfoContactPage().get()
+    avatar_title: str = os.listdir(ImagesPath.Link())[0]
     telegram_link, instagram_link = GetSocialLink.telegram_link(), GetSocialLink.instagram_link()
     return render_template("/admin/contacts.html",
                            telegram_link=telegram_link,
                            instagram_link=instagram_link,
-                           preview_text=preview_text.text)
+                           preview_text=preview_text.text,
+                           contact_me_info_title=contact_me_info.title,
+                           contact_me_info_text=contact_me_info.text,
+                           contact_me_info_number=contact_me_info.number,
+                           avatar=avatar_title)

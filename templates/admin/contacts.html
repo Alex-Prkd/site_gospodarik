@@ -12,8 +12,6 @@
 <div class="main-container">
     <div class="welcome-info">
         <div class="row">
-
-
             <div class="col-6">
                 <div class="canvas-container">
                     <canvas id="contact-canvas" width="400" height="400" >
@@ -26,8 +24,6 @@
                     </label>
                 <input class="btn btn-primary d-grid col-3 mx-auto my-1" name="save_image" disabled="true" type="button" onclick="saveNewAvatarPhoto(this)" value="Сохранить">
             </div>
-
-
             <div class="col-6">
                 <div>
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -41,7 +37,7 @@
         <div class="row col-md-2 mx-auto">
             <div class="text-center rounded">
                 <label class="input-file">
-                    <input type="file" name="bg_photo[]" onchange="showPreview(this)" accept="image/*">
+                    <input type="file" name="bg_photo[]" id="background-image" onchange="showPreview(this)" accept="image/*">
                     <span class="input-file opacity-50">Изменить фото</span>
                 </label>
                 <input class="btn btn-success" type="hidden" name="save" onclick="saveBackground(this)" value="Сохранить">
@@ -51,44 +47,28 @@
             </div>
         </div>
     </div>
-
-
     <div class="section-container-about">
         <div class="section-container-about-inner">
             <div class="row">
                 <div class="col-sm-6 col-md-6">
                     <section class="info-my-contact">
-                        <h3>Фотограф Господарик Надежда</h3>
-                        <h8>Чтобы связаться со мной заполните форму, напишите мне в соц.сетях или позвоните по телефону</h8>
-                        <h3>8 (917) 216 7338</h3>
-                    </section>
-                </div>
-
-                <div class="col-sm-6 col-md-6">
-                    <section class="form-contact-me">
-                        <form action="" method="post">
-                            <fieldset>
-                                <div class="input-group">
-                                    <input class="form-control" type="text" name="name" placeholder="Ваше имя">
-                                </div>
-                                <div class="input-group">
-                                    <input class="form-control" type="text" name="email" placeholder="Контактный телефон или email">
-                                </div>
-                                <div class="input-group">
-                                    <textarea placeholder="Ваше сообщение" name="message" rows="7"></textarea>
-                                </div>
-                                <div class="input-group">
-                                        <button class="btn btn-dark">Отправить</button>
-                                </div>
-                            </fieldset>
-                        </form>
+                        <div style="margin-bottom: 10px;">
+                            <h3><input type="text" style="field-sizing:content" placeholder="{{contact_me_info_title}}"></h3>
+                            <input class="btn btn-success" type="button" onclick="ContactMeTitle(this)"  value="Сохранить">
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <h8><textarea placeholder="{{contact_me_info_text}}" rows="4"></textarea></h8>
+                            <input class="btn btn-success" type="button" onclick="ContactMeText(this)" value="Сохранить">
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <h3><input type="tel" placeholder="{{contact_me_info_number}}"></h3>
+                            <input class="btn btn-success" type="button" onclick="ContactMeNumber(this)" value="Сохранить">
+                        </div>
                     </section>
                 </div>
             </div>
         </div>
     </div>
-
-
 </div>
 {% endblock %}
 
@@ -96,5 +76,6 @@
 {% block scripts %}
     <script src="../static/js/admin/contact_page/edit_avatar.js"></script>
     <script src="../static/js/admin/contact_page/edit_background.js"></script>
+    <script src="../static/js/admin/contact_page/edit_contact_me_info.js"></script>
     <script src="../static/js/admin/contact_page/preview_text.js"></script>
 {% endblock %}

@@ -1,15 +1,15 @@
-import logging
 from typing import List
 
 from sqlalchemy import select
-from sqlalchemy.orm import Session
+
 
 from db import database
 from db.models.base_template import MySocialLink
-from db.models.contact_page_table import PreviewText
+from db.models.contact_page_table import PreviewText, ContactInfo
 from db.models.main_page import MainTable, FollowMeText
 from db.models.price_page_db import Service, InfoService, BeforeWork, Information, MyCondition, ConditionVideo, \
     AdditionalInfo, Discount, OrderPhotoShootText
+from db.models.review_page_table import Reviews
 
 
 class WriteQuote:
@@ -397,4 +397,62 @@ class PreviewTextContactPageDB:
             preview = session_db.scalar(select(PreviewText))
             preview.text = new_text
             session_db.add(preview)
+            session_db.commit()
+
+
+class TextContactMeContactPageDB:
+    @staticmethod
+    def create_default_tex():
+        session = database.create_session()
+        with session() as session_db:
+            res = ContactInfo(title="Пустое поле.",
+                              text="Пустое поле.",
+                              number="0")
+            session_db.add(res)
+            session_db.commit()
+
+    @staticmethod
+    def edit_title_text(new_title: str):
+        session = database.create_session()
+        with session() as session_db:
+            contact_info = session_db.scalar(select(ContactInfo))
+            contact_info.title = new_title
+            session_db.add(contact_info)
+            session_db.commit()
+
+    @staticmethod
+    def edit_info(new_text: str):
+        session = database.create_session()
+        with session() as session_db:
+            contact_info = session_db.scalar(select(ContactInfo))
+            contact_info.text = new_text
+            session_db.add(contact_info)
+            session_db.commit()
+
+    @staticmethod
+    def edit_number(new_number):
+        session = database.create_session()
+        with session() as session_db:
+            contact_info = session_db.scalar(select(ContactInfo))
+            contact_info.number = new_number
+            session_db.add(contact_info)
+            session_db.commit()
+
+
+class Review:
+    @staticmethod
+    def accept_inactive_review(id):
+        session = database.create_session()
+        with session() as session_db:
+            inactive_review: Reviews = session_db.scalar(select(Reviews).where(Reviews.id == id))
+            inactive_review.active = True
+            session_db.add(inactive_review)
+            session_db.commit()
+
+    @staticmethod
+    def remove_review(id):
+        session = database.create_session()
+        with session() as session_db:
+            inactive_review: Reviews = session_db.scalar(select(Reviews).where(Reviews.id == id))
+            session_db.delete(inactive_review)
             session_db.commit()

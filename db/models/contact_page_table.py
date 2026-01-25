@@ -11,4 +11,7 @@ class PreviewText(Base):
 
 class ContactInfo(Base):
     __tablename__ = "contact_info_contact_page"
+
+    title: Mapped[str] = mapped_column(String())
     text: Mapped[str] = mapped_column(String())
+    number: Mapped[str] = mapped_column(String())

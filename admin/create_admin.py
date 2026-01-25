@@ -1,7 +1,8 @@
 from flask import Flask
 
 from admin.admin_handlers import admin_main_page, admin_price_page, admin_review_page, admin_contacts_page
-from admin.contact_page_views import save_preview_text, save_preview_avatar, save_background
+from admin.contact_page_views import save_preview_text, save_preview_avatar, save_background, save_title_contact_me, \
+    save_text_contact_me, save_number_contact_me
 from admin.main_views import remove_photo_view, edit_avatar_photo, add_new_photo, edit_quote, edit_follow_me_text, \
     edit_follow_me_link, edit_link_telegram, edit_link_instagram
 from admin.price_views import remove_service, add_service, edit_img_service, edit_title_service, \
@@ -10,6 +11,7 @@ from admin.price_views import remove_service, add_service, edit_img_service, edi
     change_my_condition, remove_my_condition, change_condition_video, edit_background_photo_price_page, \
     edit_info_footer, remove_info_footer, add_new_info_footer, edit_discount, remove_discount, add_new_discount, \
     edit_order_text
+from admin.review_views import get_inactive_reviews, accept_inactive_review, remove_inactive_review, remove_review
 
 
 def admin_main_views(app: Flask):
@@ -52,18 +54,28 @@ def price_views(app: Flask):
     app.add_url_rule("/admin/edit_order_text", methods=["POST"], view_func=edit_order_text)
 
 
+def review_views(app: Flask):
+    app.add_url_rule("/admin/get_inactive_reviews", methods=["GET"], view_func=get_inactive_reviews)
+    app.add_url_rule("/admin/accept_inactive_review", methods=["PATCH"], view_func=accept_inactive_review)
+    app.add_url_rule("/admin/delete_inactive_review", methods=["POST"], view_func=remove_inactive_review)
+    app.add_url_rule("/admin/remove_review", methods=["POST"], view_func=remove_review)
+
+
 def contact_views(app: Flask):
-    app.add_url_rule("/admin/edit_preview_contact_page", methods=["POST"], view_func=save_preview_text)
+    app.add_url_rule("/admin/edit_preview_contact_page", methods=["GET"], view_func=save_preview_text)
     app.add_url_rule("/admin/contacts/new_preview_avatar", methods=["POST"], view_func=save_preview_avatar)
     app.add_url_rule("/admin/contacts/new_background", methods=["POST"], view_func=save_background)
+    app.add_url_rule("/admin/contacts/new_contact_me_title", methods=["POST"], view_func=save_title_contact_me)
+    app.add_url_rule("/admin/contacts/new_contact_me_text", methods=["POST"], view_func=save_text_contact_me)
+    app.add_url_rule("/admin/contacts/new_contact_me_number", methods=["POST"], view_func=save_number_contact_me)
 
 
 def admin_pages(app: Flask):
     app.add_url_rule("/admin/", methods=["GET", "POST"], view_func=admin_main_page)
     admin_main_views(app)
-
     app.add_url_rule("/admin/price", methods=["GET", "POST"], view_func=admin_price_page)
     price_views(app)
     app.add_url_rule("/admin/reviews", methods=["GET", "POST"], view_func=admin_review_page)
+    review_views(app)
     app.add_url_rule("/admin/contacts", methods=["GET", "POST"], view_func=admin_contacts_page)
     contact_views(app)

@@ -1,125 +1,60 @@
-{% extends "base.html" %}
+{% extends "admin/base.html" %}
+{% from "admin/modals_windows/reviews_page/modals.html" import inactive_review %}
 
-{% block load_css %} <link rel="stylesheet" href="static/css/reviews_page.css">{% endblock %}
+{% block load_css %}
+    <link rel="stylesheet" href="../static/css/reviews_page.css">
+    <link rel="stylesheet" href="../static/css/admin_main_page.css">
+{% endblock %}
 
 {% block title %} Отзывы {% endblock %}
 
 {% block main %}
 <div class="main-container">
+    <input type="hidden" id="csrf" name="csrf_token" value="{{ csrf_token() }}">
     <div class="container-btn-review">
         <div class="box-social">
             <ul class="link-social">
-                <li><button type="button" class="btn btn-dart" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i> Оставить отзыв</button></li>
+                <li><button id="btnModalInactiveReview" type="button" class="btn btn-dart" data-bs-toggle="modal" data-bs-target="#inactiveReview" onclick="getInactiveReviews(this)"><i class="bi bi-pencil"></i> Новые отзывы</button></li>
             </ul>
         </div>
     </div>
     <div class="container">
         <div class="row gy-4">
-            <div class="col-4" style="text-align:center">
-                <div class="content-review">
-                    <img src="static/img/link/logo-link.jpg" class="review-photo">
-                    <h3>Имя</h3>
-                    <p>Потрясающе!!! Просто невероятная любовь, благодарю миллион раз!</p>
-                </div>
-            </div>
-            <div class="col-4" style="text-align:center">
-                <div class="content-review">
-                    <img src="static/img/link/logo-link.jpg" class="review-photo">
-                    <h3>Имя</h3>
-                    <p>Потрясающе!!! Просто невероятная любовь</p>
-                </div>
-            </div>
-            <div class="col-4" style="text-align:center">
-                <div class="content-review">
-                    <img src="static/img/link/logo-link.jpg" class="review-photo">
-                    <h3>Имя</h3>
-                    <p>Фотографии в самое сердечко❤️❤️❤️</p>
-                </div>
-            </div>
-
-            <div class="col-4" style="text-align:center">
-                <div class="content-review">
-                    <img src="static/img/link/logo-link.jpg" class="review-photo">
-                    <h3>Имя</h3>
-                    <p>🔥🔥🔥Женя, спасибо тебе огромное ещё раз! Это было потрясающе!!!! Тот редкий случай когда реальность превосходит ожидания)
-                        Так подробно, столько информации, дополнительных плюшек, на которые даже не рассчитывала и не думала о них!
-                        Ты чудо!!! Уверена, что это не последняя наша встреча 🤗❤️😘</p>
-                </div>
-            </div>
-
-
-            <div class="col-4" style="text-align:center">
-                <div class="content-review">
-                    <img src="static/img/link/logo-link.jpg" class="review-photo">
-                    <h4>Имя</h4>
-                    <p>Все было супер! Фото отличные! Спасибо!</p>
-                </div>
-            </div>
-
-
-            <div class="col-4" style="text-align:center">
-                <div class="content-review">
-                    <img src="static/img/link/logo-link.jpg" class="review-photo">
-                    <h3>Имя</h3>
-                    <p>Спасибо замечательному фотографу Евгении за такие чувственные и нежные снимки , я очень рада , что выбрала именно ее ❤️❤️❤️ Благодарю ☺️</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-6">
-                                <h3>Ваш отзыв</h3>
-                                <div class="input-group">
-                                    <input type="text" placeholder="Ваше имя" class="form-control">
-                                </div>
-                                <div class="input-group">
-                                    <input type="text" placeholder="Ссылка на соцсеть (необязательно)" class="form-control">
-                                </div>
-                                <div class="input-group">
-                                    <textarea placeholder="Ваш отзыв" rows="7"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="position-relative my-relative">
-                                    <div class="position-absolute top-50 start-50 translate-middle avatar-container">
-                                        <div class="avatar-container-inner">
-                                            <div class="radius">
-                                                <i class="bi bi-camera position-absolute top-50 start-50 translate-middle pos-camera"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="position-relative my-relative">
-                                    <div class="btn-container">
-                                        <div class="btn-container-inner">
-                                            <div class="avatar-btn">
-                                                <button type="button" class="btn btn-dark">Выбрать фото</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            {% for review in reviews %}
+                <div class="col-4" style="text-align:center">
+                    <div class="content-review">
+                        <img src="static/img/link/{{ review.photo }}" class="review-photo">
+                        <h3>{{ review.nickname }}</h3>
+                        {% if review.social_link != None %}
+                            <p>{{review.social_link}}</p>
+                        {% endif %}
+                        <p>{{ review.review_text}}</p>
+                        <input type="button" id="{{ review.id }}" class="btn btn-danger" value="Удалить" onclick="removeReview(this)">
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-dark">Сохранить изменения</button>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
+
+
+
+
+    <!-- Модальное окно -->
+    <div class="modal" id="inactiveReview" tabindex="-1" aria-labelledby="inactiveModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">{{ inactive_review() }}</div>
+    </div>
+
+
+
+
 
 </div>
 
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="../static/js/admin/reviews_page/remove_review.js"></script>
+    <script src="../static/js/admin/reviews_page/get_data_inactive_reviews.js"></script>
+    <script src="../static/js/admin/reviews_page/work_with_inactive_reviews.js"></script>
 {% endblock %}

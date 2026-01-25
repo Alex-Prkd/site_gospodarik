@@ -1,7 +1,7 @@
-/*window.onbeforeunload = function() {
-    let preview_photo = document.getElementById("preview-photo")
-    if (preview_photo.files[0]) return false;
-}*/
+window.onbeforeunload = function() {
+    let background_image = document.getElementById("background-image")
+    if (background_image.files[0]) return false;
+}
 
 
 function showPreview(target){
