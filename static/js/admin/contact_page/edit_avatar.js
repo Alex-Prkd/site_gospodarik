@@ -12,11 +12,12 @@ function avatarPhotoContactPage(){
     const contact_ctx = contact_canvas.getContext('2d');
     const contact_img = document.getElementById('contact-image');
     contact_ctx.clearRect(0, 0, contact_canvas.width, contact_canvas.height);
+    let radius = Math.min(contact_canvas.width, contact_canvas.height) / 2;
     contact_ctx.beginPath();
     contact_ctx.arc(
             contact_canvas.width / 2,
             contact_canvas.height / 2,
-            160,
+            radius,
             0,
             Math.PI * 2
     );

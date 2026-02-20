@@ -62,7 +62,7 @@ def review_views(app: Flask):
 
 
 def contact_views(app: Flask):
-    app.add_url_rule("/admin/edit_preview_contact_page", methods=["GET"], view_func=save_preview_text)
+    app.add_url_rule("/admin/edit_preview_contact_page", methods=["POST"], view_func=save_preview_text)
     app.add_url_rule("/admin/contacts/new_preview_avatar", methods=["POST"], view_func=save_preview_avatar)
     app.add_url_rule("/admin/contacts/new_background", methods=["POST"], view_func=save_background)
     app.add_url_rule("/admin/contacts/new_contact_me_title", methods=["POST"], view_func=save_title_contact_me)

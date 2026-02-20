@@ -1,8 +1,13 @@
-from typing import List
+import os
+
+from typing import List, Union
 
 from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
+from werkzeug.datastructures import FileStorage
 
-
+from admin.WorkWithImgServices.ConvertSizeIMG import CreateCopySmallSizeIMG
+from config import PathImg
 from db import database
 from db.models.base_template import MySocialLink
 from db.models.contact_page_table import PreviewText, ContactInfo
@@ -118,7 +123,7 @@ class WriteNewService:
                 session_db.add(service)
                 session_db.commit()
                 return True
-        except Exception:
+        except SQLAlchemyError:
             session_db.rollback()
             return False
 
@@ -453,6 +458,34 @@ class Review:
     def remove_review(id):
         session = database.create_session()
         with session() as session_db:
-            inactive_review: Reviews = session_db.scalar(select(Reviews).where(Reviews.id == id))
-            session_db.delete(inactive_review)
+            review: Reviews = session_db.scalar(select(Reviews).where(Reviews.id == id))
+            session_db.delete(review)
             session_db.commit()
+
+    @staticmethod
+    def add_new_review(data_review: dict, photo_review_title: Union[FileStorage, None]):
+        session = database.create_session()
+        with session() as session_db:
+            try:
+                new_review = Reviews()
+                if photo_review_title is not None:
+                    new_review.photo = photo_review_title.filename
+                new_review.nickname = data_review["name"]
+                new_review.review_text = data_review["review"]
+                new_review.social_link = data_review["social_link"]
+                session_db.add(new_review)
+                session_db.commit()
+                if photo_review_title is not None:
+                    path_big_img, path_middle_img, path_small_img = PathImg.AddNewReviewPhoto()
+                    photo_review_title.save(os.path.join(path_big_img, photo_review_title.filename))
+                    CreateCopySmallSizeIMG().createMobileIMG(
+                        name_img=photo_review_title.filename,
+                        path_big_img=path_big_img,
+                        path_middle_img=path_middle_img,
+                        path_small_img=path_small_img
+                    )
+            except SQLAlchemyError:
+                session_db.rollback()
+            except Exception:
+                "Логгирование ошибки"
+                pass

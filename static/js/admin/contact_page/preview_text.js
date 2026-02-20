@@ -5,6 +5,7 @@ function changePreview(target){
         alert("Поле пустое!")
         return
     }
+
     let response = fetch("/admin/edit_preview_contact_page",{
     method: "POST",
     headers: {

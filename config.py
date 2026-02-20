@@ -50,3 +50,11 @@ class PathImg:
     def ContactPageBackground(cls):
         path = os.path.join(cls.__IMG_PATH, "img_contact_page", "background")
         return path
+
+
+    @classmethod
+    def AddNewReviewPhoto(cls):
+        path_big_img = os.path.join(cls.__IMG_PATH, "photos_reviews", "big_size")
+        path_middle_img = os.path.join(cls.__IMG_PATH, "photos_reviews", "middle_size")
+        path_small_img = os.path.join(cls.__IMG_PATH, "photos_reviews", "small_size")
+        return path_big_img, path_middle_img, path_small_img

@@ -11,20 +11,17 @@
         <div class="row">
             <div class="col-6">
                 <div class="canvas-container">
-                    <canvas id="contact-canvas" width="400" height="400" class="container-canvas">
-                        <img id="contact-image" src="static/img/link/UVBMCELSypE.jpg">
+                    <canvas id="contact-canvas" width="400" height="400">
+                        <img id="contact-image" src="../static/img/img_contact_page/preview_photo/avatar.jpg">
                     </canvas>
                 </div>
             </div>
             <div class="col-6">
-                <p class="about-contact">Привет!
-                Меня зовут Гришина Женя. Я фотограф и моё основное направление — женский портрет и семейные истории.
-                «Тепло», «искренность», «свобода», «лёгкость», «чувственность»  — слова, которые описывают мои фотографии. Если вам близки эти ценности и вы не боитесь показывать себя настоящих, то нам точно с вами по пути.
-                </p>
+                <p class="about-contact">{{ preview_text }}</p>
             </div>
         </div>
     </div>
-    <div class="screensaver"></div>
+    <div class="screensaver" style="background-image: url('../static/img/img_contact_page/background/background.JPG');"></div>
 
 
     <div class="section-container-about">
@@ -32,9 +29,9 @@
             <div class="row">
                 <div class="col-sm-6 col-md-6">
                     <section class="info-my-contact">
-                        <h3>Фотограф Господарик Надежда</h3>
-                        <h8>Чтобы связаться со мной заполните форму, напишите мне в соц.сетях или позвоните по телефону</h8>
-                        <h3>8 (917) 216 7338</h3>
+                        <h3>{{contact_me_info_title}}</h3>
+                        <h8>{{contact_me_info_text}}</h8>
+                        <h3>{{contact_me_info_number}}</h3>
                     </section>
                 </div>
 

@@ -1,28 +1,28 @@
 {% macro reviews_modal() %}
                 <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    <inp onclick="clearDataNewReview()" type="button" id="close-modal" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></inp>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-6">
-                                <h3>Ваш отзыв</h3>
+                                <h3 style="color: #fff">Ваш отзыв</h3>
                                 <div class="input-group">
-                                    <input type="text" placeholder="Ваше имя" class="form-control">
+                                    <input type="text" name="name" placeholder="Ваше имя" class="form-control" style="color: #fff;">
                                 </div>
                                 <div class="input-group">
-                                    <input type="text" placeholder="Ссылка на соцсеть (необязательно)" class="form-control">
+                                    <input type="text" name="social_link" placeholder="Ссылка на соцсеть (необязательно)" class="form-control" style="color: #fff;">
                                 </div>
                                 <div class="input-group">
-                                    <textarea placeholder="Ваш отзыв" rows="7"></textarea>
+                                    <textarea name="review" placeholder="Ваш отзыв" rows="7" class="form-control" style="background: #c49a87be; color: #fff;"></textarea>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="position-relative my-relative">
-                                    <div class="position-absolute top-50 start-50 translate-middle avatar-container">
+                                    <div id="preview-div" class="position-absolute top-50 start-50 translate-middle avatar-container">
                                         <div class="avatar-container-inner">
-                                            <div class="radius">
+                                            <div id="div-preview" class="radius">
                                                 <i class="bi bi-camera position-absolute top-50 start-50 translate-middle pos-camera"></i>
                                             </div>
                                         </div>
@@ -32,7 +32,10 @@
                                     <div class="btn-container">
                                         <div class="btn-container-inner">
                                             <div class="avatar-btn">
-                                                <button type="button" class="btn btn-dark">Выбрать фото</button>
+                                                <label class="input-file">
+                                                    <input type="file" name="file[]" id="previewReview" accept="image/*" class="btn btn-light" onchange="previewPhotoReview(this)">
+                                                    <span class="btn btn-light"> Выбрать фото</span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
@@ -42,7 +45,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-dark">Сохранить изменения</button>
+                    <button type="button" class="btn btn-light" onclick="addReview(this)">Сохранить изменения</button>
                 </div>
             </div>
 {% endmacro %}
+

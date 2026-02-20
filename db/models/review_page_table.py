@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from sqlalchemy import String, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column
@@ -8,10 +9,10 @@ from db.models import Base
 
 class Reviews(Base):
     __tablename__ = "reviews"
-    photo: Mapped[str] = mapped_column(String())
-    nickname: Mapped[str] = mapped_column(String())
+    photo: Mapped[str] = mapped_column(String, nullable=True)
+    nickname: Mapped[str] = mapped_column(String)
     review_text: Mapped[str] = mapped_column(String(300))
-    social_link: Mapped[str] = mapped_column(String())
+    social_link: Mapped[str] = mapped_column(String, nullable=True)
     active: Mapped[bool] = mapped_column(default=False, unique=False)
     date_added: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
@@ -21,7 +22,6 @@ class Reviews(Base):
 
     def to_dict(self):
         reviews_dict = {
-            # фото сразу сделать путь
             "id": self.id,
             "nickname": self.nickname,
             "photo": self.photo,

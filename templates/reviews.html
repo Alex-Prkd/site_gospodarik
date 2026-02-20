@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% from "modals_windows/review_modal.html" import reviews_modal %}
 
-{% block load_css %} <link rel="stylesheet" href="static/css/reviews_page.css">{% endblock %}
+{% block load_css %}
+    <link rel="stylesheet" href="static/css/reviews_page.css">
+{% endblock %}
 
 {% block title %} Отзывы {% endblock %}
 
@@ -9,23 +11,35 @@
 <div class="main-container">
     <div class="container-btn-review">
         <div class="box-social">
+            <input type="hidden" id="csrf_token" value="{{ csrf_token() }}">
             <ul class="link-social">
+                <div>
+                    <p id="alert-reviews" class="text-response-reviews">Спасибо за отзыв.</p>
+                </div>
                 <li><button type="button" class="btn btn-dart" data-bs-toggle="modal" data-bs-target="#addReviewModal"><i class="bi bi-pencil"></i> Оставить отзыв</button></li>
             </ul>
         </div>
     </div>
     <div class="container">
         <div class="row gy-4">
-            {% for review in reviews %}
-                <div class="col-4" style="text-align:center">
-                    <div class="content-review">
-                        <img src="static/img/link/{{review.photo}}" class="review-photo">
-                        <h3>{{review.nickname}}</h3>
-                        <p>{{review.social_link}}</p>
-                        <p>{{review.review_text}}</p>
-                    </div>
+            {% if not reviews %}
+                <div>
+                    <p style="text-align: center">Надпись о том, что нет отзывов</p>
                 </div>
-            {% endfor %}
+            {% else %}
+                {% for review in reviews %}
+                    <div class="col-4" style="text-align:center">
+                        <div class="content-review">
+                            <img src="static/img/photos_reviews/big_size/{{review.photo}}" class="review-photo">
+                            <h3>{{review.nickname}}</h3>
+                            {% if review.social_link != None %}
+                                <p>{{review.social_link}}</p>
+                            {% endif %}
+                            <p>{{review.review_text}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 
@@ -34,4 +48,10 @@
         <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">{{ reviews_modal() }}</div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="static/js/reviews_js/add_new_review.js"></script>
+    <script src="static/js/reviews_js/remove_preview_photo.js"></script>
+    <script src="static/js/reviews_js/close_modal_window.js"></script>
 {% endblock %}

@@ -2,12 +2,11 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
+    object-fit:cover;
 }
 
 @media (max-width: 900px){
 .review-photo{
-    /* хз возм. sizes в img... почитать!!!*/
-
     width: calc(100px + (16 * 0.7) * ((100vw - 320px) / 1280));
     height: calc(100px + (16 * 0.7) * ((100vw - 320px) / 1280));
 }}
@@ -47,7 +46,7 @@
 
 .radius{
     border-radius: 100%;
-    background: #01191ff7;
+    background: #fff;
     width: 100%;
     height: 100%;
 }
@@ -71,4 +70,70 @@
     font-size: 20px;
     width: 100%;
     text-align: center;
+}
+
+.err-enter{
+    border:1px solid #a62121;
+    background: #c49a87be;
+    color: #fff;
+}
+
+.input-file {
+	position: relative;
+	display: inline-block;
+	text-align: center;
+}
+
+.input-file span {
+	position: relative;
+	display: inline-block;
+	text-align: center;
+}
+
+.input-file input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
+}
+
+.input-file-list-remove {
+	color: black;
+	text-decoration: none;
+	display: inline-block;
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	top: 5px;
+	right: 5px;
+
+	width: 16px;
+	height: 16px;
+	text-align: center;
+	line-height: 16px;
+	border-radius: 50%;
+}
+
+
+.text-response-reviews{
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 1s ease, opacity 1s ease, background 1s ease;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 9999
+}
+
+
+.text-response-reviews.show{
+    opacity: 1;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transform: translate(-50%, -50%) scale(1);
+    background: #22d11f9b;
+    border-radius: 10px;
 }
