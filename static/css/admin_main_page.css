@@ -90,3 +90,8 @@
 	line-height: 16px;
 	border-radius: 50%;
 }
+
+
+.container-stages{
+    border: 1px solid black;
+}

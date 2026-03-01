@@ -1,35 +1,3 @@
-{% macro edit_avatar() %}
-        <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
-            <div class="modal-content" style="background: #969595e4;">
-                <div class="modal-header">
-                    <button type="button" onclick="removeFileAvatar(this)" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="position-relative my-relative">
-                                    <div class="btn-container">
-                                        <div class="btn-container-inner">
-                                            <label class="input-file edit-avatar-div">
-                                                <input type="file" id="editAvatar" name="file[]" accept="image/*" onchange="addPreviewAvatar(this)">
-                                                <span class="input-file-btn">Выберите файл</span>
-                                            </label>
-                                        </div>
-                                        <button type="button" name="saveAvatar" class="btn btn-dark" disabled="true" onclick="sendNewAvatar(this)">Сохранить изменения</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 preview-div">
-                                <div class="input-file-preview"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-{% endmacro %}
-
 {% macro add_description(title, service_id) %}
         <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
             <div class="modal-content" style="background: #fff;">
@@ -55,40 +23,6 @@
         </div>
 {% endmacro %}
 
-
-{% macro modal_edit_photo(id, title_service, title_img) %}
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content" style="background: #fff;">
-                <div class="modal-header">
-                    <button type="button" id="closeModalEditPhoto" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Закрыть" onclick="removePreviewPhotoService({{id}})"></button>
-                </div>
-                <p>Изменить фото услуги: {{ title_service }}</p>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="input-group container-preview-new-photo-service_{{ id }}">
-                                <div class="col-6">
-                                    <div class="position-relative my-relative">
-                                        <div class="btn-container">
-                                            <div class="btn-container-inner">
-                                                <label class="input-file ">
-                                                    <input type="file" id="inputNewPhotoForService" name="file[]" accept="image/*" onchange="createPreviewIMG({{ id }})">
-                                                    <span class="input-file-btn">Выберите файл</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-dark" onclick="editPhoto('{{ id }}','{{ title_img }}')">Сохранить изменения</button>
-                </div>
-            </div>
-        </div>
-{% endmacro %}
 
 {% macro remove_descriptions(title, service_id, descriptions) %}
     <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
@@ -121,6 +55,7 @@
         </div>
     </div>
 {% endmacro %}
+
 
 {% macro create_service() %}
     <div class="modal-dialog modal-xl modal-lg modal-dialog-centered">
@@ -168,6 +103,41 @@
             </div>
         </div>
     </div>
+{% endmacro %}
+
+
+{% macro modal_edit_photo(id, title_service, title_img) %}
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="background: #fff;">
+                <div class="modal-header">
+                    <button type="button" id="closeModalEditPhoto" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Закрыть" onclick="removePreviewPhotoService({{id}})"></button>
+                </div>
+                <p>Изменить фото услуги: {{ title_service }}</p>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-group container-preview-new-photo-service_{{ id }}">
+                                <div class="col-6">
+                                    <div class="position-relative my-relative">
+                                        <div class="btn-container">
+                                            <div class="btn-container-inner">
+                                                <label class="input-file ">
+                                                    <input type="file" id="inputNewPhotoForService" name="file[]" accept="image/*" onchange="createPreviewIMG({{ id }})">
+                                                    <span class="input-file-btn">Выберите файл</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" onclick="editPhoto('{{ id }}','{{ title_img }}')">Сохранить изменения</button>
+                </div>
+            </div>
+        </div>
 {% endmacro %}
 
 

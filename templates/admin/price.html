@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% from "admin/macros.html" import add_description, remove_descriptions, create_service, modal_edit_photo,
+{% from "admin/modals_windows/price_page_modals.html" import add_description, remove_descriptions, create_service, modal_edit_photo,
 modal_create_stage, add_condition_stage, add_my_condition, add_info_footer, add_discount %}
 
 {% block load_css %}
@@ -239,7 +239,7 @@ modal_create_stage, add_condition_stage, add_my_condition, add_info_footer, add_
 
 
 {% block scripts %}
-    <script src="../static/js/func_price_page/service.js"></script>
+    <script src="../static/js/admin/func_price_page/service.js"></script>
     <script src="../static/js/admin/func_price_page/edit_info_service.js"></script>
     <script src="../static/js/admin/func_price_page/edit_photo_background.js"></script>
     <script src="../static/js/admin/func_price_page/order.js"></script>

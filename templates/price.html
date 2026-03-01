@@ -8,48 +8,25 @@
 <div class="section-container">
         <div class="section-container-inner-services">
             <div class="row g-2 justify-content-center">
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                    <div class="img-services">
-                        <img src="static/img/photos/IMG_9519_big.JPG" loading="lazy" height="2400px" width="1600px" decoding="async" class="img-class"  alt="">
-
-                            <h3>О вас</h3>
-                            <ul>
-                                <li class="info">• съемка в течении 1 часа</li>
-                                <li class="info">• помощь в подготовке к съемке (подбор локации и одежды)</li>
-                                <li class="info">• от 50 фото в цветокоррекции и лёгкой ретуши </li>
-                            </ul>
-                            <p class="info-price">Стоимость: 7500</p>
+                {% for service in services %}
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                        <div class="img-services">
+                            <img class="img-class" src="static/img/services/big_size/{{ service.img }}"
+                                loading="lazy" height="2400px" width="1600px" decoding="async"
+                                srcset="static/img/services/big_size/{{ service.img }} 1480w,
+                                        static/img/services/middle_size/{{ service.img }} 1280w,
+                                        static/img/services/small_size/{{ service.img }} 960w
+                                ">
+                                <h3>{{ service.title }}</h3>
+                                <ul>
+                                    {% for info in service.info %}
+                                        <li class="info">• {{ info.text }}</li>
+                                    {% endfor %}
+                                </ul>
+                                <p class="info-price">Стоимость: {{ service.price }} руб.</p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                    <div class="img-services">
-                        <img src="static/img/photos/IMG_9536_big.JPG" loading="lazy" height="2400px" width="1600px" decoding="async" class="img-class"  alt="">
-                        <h3>О вашей любви </h3>
-                        <ul>
-                            <li class="info">• съемка в течении 1 часа</li>
-                            <li class="info">• помощь в подготовке к съемке (подбор локации и одежды)</li>
-                            <li class="info">• от 60 фото в цветокоррекции и лёгкой ретуши</li>
-                            <li class="info">• фото моментальной печати в подарок</li>
-                        </ul>
-                        <p class="info-price">Стоимость: 8500</p>
-                    </div>
-                </div>
-
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                    <div class="img-services">
-                        <img src="static/img/photos/IMG_9521_big.JPG" loading="lazy" height="2400px" width="1600px" decoding="async" class="img-class"  alt="">
-                            <h3>О вашей семье</h3>
-                            <ul>
-                                <li class="info">• съемка в течении 1 часа</li>
-                                <li class="info">• помощь в подготовке к съемке (подбор локации и одежды)</li>
-                                <li class="info">• от 80 фото в цветокоррекции и лёгкой ретуши</li>
-                                <li class="info">• фото моментальной печати в подарок</li>
-                            </ul>
-                            <p class="info-price">Стоимость: 10000</p>
-                    </div>
-                </div>
-
+                {% endfor %}
             </div>
         </div>
 </div>
@@ -61,20 +38,18 @@
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-lg-8" >
                     <h3 style="text-align:center">Этапы работы до съёмки:</h3>
-                    <p style="text-align:left">Локация</p>
-                    <ul>
-                        <li class="info">• Я предлагаю провести съемку: дома, в студии или на природе. Все зависит от вашего желания и времени года.  </li>
-                        <li class="info">• Если вы выбираете провести фотосъёмку дома, я прошу прислать фото комнат, чтобы оценить световые условия. Если студию — присылаю фото залов, в которых я обычно снимаю. Если на природе, соответственно, фото красивых живописных мест. </li>
-                    </ul>
-                    <p style="text-align:left">Образ</p>
-                    <ul>
-                        <li class="info">• Отправляю свой гайд, где прописаны все важные моменты, на которые стоит обратить внимание + примеры образов  </li>
-                        <li class="info">• После прочтения гайда прошу прислать фото одежды, которая у вас есть, исходя из моих рекомендаций</li>
-                        <li class="info">• Составляю из ваших фото различные визуальные комбинации образов для всех членов семьи </li>
-                        <li class="info">• Если каких-то вещей не хватает, я предлагаю воспользоваться моим небольшим фотогардеробом</li>
-                    </ul>
-                    <p class="info-price">Я всегда интересуюсь, кто будет присутствовать на съемке, так же могу спросить возраст и имена, чтобы заранее познакомиться со всеми участниками фотосессии.  </p>
-                    <p style="text-align:left">За сутки до начала съемки я напоминаю время и место нашей с вами встречи.</p>
+                    {% for stage in stages %}
+                        <p style="text-align:left">{{ stage.title }}</p>
+                        <ul>
+                            {% for info_to_work in stage.info_to_work %}
+                                <li class="info">• {{ info_to_work.text }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                    {% for condition in my_conditions %}
+                        <p class="info-price">{{ condition.text }}</p>
+                    {% endfor %}
+
                 </div>
             </div>
         </div>
@@ -84,7 +59,7 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12">
                     <h3 style="text-align: center"><b>внимание!</b></h3>
-                    <h3 style="text-align: center">если вам нужен видеоролик, сообщите мне пожалуйста заранее стоимость видеоролика, продолжительностью до 1 минуты — 2 000₽</h3>
+                    <h3 style="text-align: center">{{condition_video.text}}</h3>
                 </div>
             </div>
         </div>
@@ -97,24 +72,16 @@
             <div class="row">
                 <div class="col-sm-8">
                     <h4>Дополнительная информация:</h4>
-                    <p class="info">Записываясь ко мне на съемку, вы принимаете мой авторский стиль обработки</p>
-                    <p class="info">Я не делаю пластику лица и тела, только лёгкая ретушь, которая никак не меняет вашу внешность! </p>
-                    <p class="info">Я снимаю только с естественным дневным светом: на природе, у вас дома, либо в студиях с минимальным количеством декора</p>
-                    <p class="info">Фотографии передаются через персональную фотогалерею</p>
-                    <p class="info">Срок обработки фотографий  10-14 дней</p>
-                    <p class="info">Исходный материал не отдаю, отбор делаю самостоятельно</p>
-                    <p class="info">Перенос даты возможен не более 2х раз </p>
-                    <p class="info">Бронирование осуществляется только после перевода задатка 2000₽  (задаток не возвращается, если я уже подобрала вам студию и дала рекомендации по образам — это часть моей работы)</p>
-                    <p class="info">О конфиденциальности съёмки нужно предупредить заранее, на этапе подготовки</p>
-                    <p class="info">Аренда локации оплачивается отдельно</p>
-                    <p class="info">В случае выезда в район/область, а так же в Энгельс или заводской район, к стоимости прибавляются расходы на дорогу</p>
-
+                    {% for info in additional_info %}
+                        <p class="info">{{ info.text }}</p>
+                    {% endfor %}
                 </div>
 
                     <div class="col-sm-4">
                         <h4>Скидка:</h4>
-                        <p class="info">если вы были у меня на съемке более 2х раз</p>
-                        <p class="info">не распространяется на фотодни  </p>
+                        {% for discount in discount_info %}
+                            <p class="info">{{ discount.text }}</p>
+                        {% endfor %}
                     </div>
 
             </div>
@@ -137,7 +104,7 @@
         <div class="text-social">
             <p><b>Заказать фотосъёмку</b></p>
         </div>
-        <p style="font-size: 15px; text-align:center;">Для того, чтобы забронировать съемку, напишите мне пожалуйста в любом удобном для вас мессенджере.</p>
+        <p style="font-size: 15px; text-align:center;">{{ order_photo_shoot_info.text }}</p>
         <div class="btn-container">
             <a href="" class="btn btn-secondary">Заказать</a>
         </div>

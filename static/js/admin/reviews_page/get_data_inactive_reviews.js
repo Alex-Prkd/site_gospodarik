@@ -23,7 +23,7 @@ function getInactiveReviews(target){
             loadReviewsInModalWindow(
                     data[review].id,
                     data[review].nickname,
-                    null,
+                    data[review].photo,
                     data[review].review_text,
                     data[review].social_link
             )
@@ -111,12 +111,13 @@ function loadReviewsInModalWindow(id, nickname, photo_path, review_text, social_
     div_avatar.className = "avatar-container-inner"
 
     let div_radius_avatar = document.createElement("div")
-    div_radius_avatar.className = "radius"
     if (photo_path !== null){/*есть фото к отзыву*/
         var img = document.createElement("img")
-        img.src = photo_path
+        img.src = "/static/img/photos_reviews/big_size/"+photo_path
+        img.className = "review-photo"
     }
     else{/* если фото в отзыве нет, вставляем заглушку*/
+        div_radius_avatar.className = "radius"
         var img = document.createElement("i")
         img.className = "bi bi-camera position-absolute top-50 start-50 translate-middle pos-camera"
     }

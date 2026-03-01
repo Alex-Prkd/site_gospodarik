@@ -152,14 +152,12 @@ class ReviewsPage:
     def get_reviews():
         session = database.create_session()
         with session() as session_db:
-            # order by - date
-            res = session_db.scalars(select(Reviews).filter_by(active=True)).all()
+            res = session_db.scalars(select(Reviews).filter_by(active=True).order_by(Reviews.date_added.desc())).all()
         return res
 
     @staticmethod
     def get_inactive_reviews():
         session = database.create_session()
         with session() as session_db:
-            # order by - date
-            res = session_db.scalars(select(Reviews).filter_by(active=False)).all()
+            res = session_db.scalars(select(Reviews).filter_by(active=False).order_by(Reviews.date_added.desc())).all()
         return res

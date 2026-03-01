@@ -13,7 +13,11 @@ from db.write import WriteInfoFooter, WriteQuote, WriteLinkSocial
 def admin_main_page():
     ImagesPath = PathImg()
     path_big_img, _, _ = ImagesPath.PhotosMainPage()
-    names_img: list = os.listdir(path_big_img)
+    names_img: list = sorted(
+        os.listdir(path_big_img),
+        key=lambda image: os.path.getctime(os.path.join(path_big_img, image)),
+        reverse=True
+    )
     avatar_title: str = os.listdir(ImagesPath.Link())[0]
     preview = GetQuote.get_text_quote()
     info_footer = GetInfoFooter.get_info()  # Форма текста под фотографиями

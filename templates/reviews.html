@@ -30,7 +30,12 @@
                 {% for review in reviews %}
                     <div class="col-4" style="text-align:center">
                         <div class="content-review">
-                            <img src="static/img/photos_reviews/big_size/{{review.photo}}" class="review-photo">
+                            <img class="review-photo" src="static/img/photos_reviews/big_size/{{review.photo}}"
+                                 loading="lazy" decoding="async" height="2400px" width="1600px"
+                                 srcset="static/img/photos_reviews/big_size/{{ review.photo }} 1400w,
+                                 static/img/photos_reviews/middle_size/{{ review.photo }} 1280w,
+                                 static/img/photos_reviews/small_size/{{ review.photo }} 960w,
+                                " onerror="this.onerror=null;this.src='/static/img/photos_reviews/no_photo/no-photo.JPG';this.srcset='';">
                             <h3>{{review.nickname}}</h3>
                             {% if review.social_link != None %}
                                 <p>{{review.social_link}}</p>
@@ -51,7 +56,7 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="static/js/reviews_js/add_new_review.js"></script>
-    <script src="static/js/reviews_js/remove_preview_photo.js"></script>
-    <script src="static/js/reviews_js/close_modal_window.js"></script>
+    <script src="static/js/reviews_page/add_new_review.js"></script>
+    <script src="static/js/reviews_page/remove_preview_photo.js"></script>
+    <script src="static/js/reviews_page/close_modal_window.js"></script>
 {% endblock %}

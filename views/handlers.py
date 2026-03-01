@@ -5,15 +5,21 @@ from flask import render_template, jsonify, request
 from werkzeug.datastructures import FileStorage
 
 from config import PathImg
+from db.models.price_page_db import Service
 from db.read import GetQuote, GetInfoFooter, GetSocialLink, ReviewsPage, PreviewTextContactPage, \
-    ContactMeInfoContactPage
+    ContactMeInfoContactPage, GetServices, GetStages, GetMyConditions, GetConditionVideo, GetAdditionalInfo, \
+    GetDiscountInfo, OrderPhotoShootTextDB
 from db.write import Review
 
 
 def main_page():
     ImagesPath = PathImg()
     path_big_img, _, _ = ImagesPath.PhotosMainPage()
-    big_images: list = os.listdir(path_big_img)
+    big_images: list = sorted(
+        os.listdir(path_big_img),
+        key=lambda image: os.path.getctime(os.path.join(path_big_img, image)),
+        reverse=True
+    )
     avatar_img = os.listdir(ImagesPath.Link())[0]
     quote = GetQuote().get_text_quote()
     text_footer, link_footer = GetInfoFooter.get_info(), GetInfoFooter.get_link()
@@ -31,21 +37,42 @@ def main_page():
 
 
 def price_page():
-    path = PathImg.BackgroundPricePage()
-    bg_image = os.listdir(path)[0]
+    path = PathImg()
+    avatar_img = os.listdir(path.Link())[0]
+    bg_image = os.listdir(path.BackgroundPricePage())[0]
+    services = GetServices().all_services()
+    stages = GetStages().all()
+    my_condition = GetMyConditions().all()
+    condition_video = GetConditionVideo().get()
+    additional_info = GetAdditionalInfo.all()
+    discount_info = GetDiscountInfo.all()
+    order_photo_shoot_info = OrderPhotoShootTextDB.get()
+    instagram, telegram = GetSocialLink.instagram_link(), GetSocialLink.telegram_link()
     return render_template(
         "price.html",
-        bg_image=bg_image
+        bg_image=bg_image,
+        avatar=avatar_img,
+        services=services,
+        stages=stages,
+        my_conditions=my_condition,
+        condition_video=condition_video,
+        additional_info=additional_info,
+        discount_info=discount_info,
+        order_photo_shoot_info=order_photo_shoot_info,
+        instagram=instagram,
+        telegram=telegram
     )
 
 
 def review_page():
+    avatar_img = os.listdir(PathImg().Link())[0]
     reviews = ReviewsPage.get_reviews()
     if len(reviews) == 0:
         reviews = False
     return render_template(
         "reviews.html",
-        reviews=reviews
+        reviews=reviews,
+        avatar=avatar_img
     )
 
 
@@ -59,12 +86,14 @@ def add_new_review():
 
 def contacts_page():
     ImagesPath = PathImg()
+    avatar_img = os.listdir(ImagesPath.Link())[0]
     preview_text = PreviewTextContactPage().get()
     contact_me_info = ContactMeInfoContactPage().get()
     avatar_title: str = os.listdir(ImagesPath.Link())[0]
     telegram_link, instagram_link = GetSocialLink.telegram_link(), GetSocialLink.instagram_link()
     return render_template(
         "contacts.html",
+        avatar=avatar_img,
         preview_text=preview_text.text,
         contact_me_info_title=contact_me_info.title,
         contact_me_info_text=contact_me_info.text,

@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% from "admin/modals_windows/reviews_page/modals.html" import inactive_review %}
+{% from "admin/modals_windows/reviews_page_modals.html" import inactive_review %}
 
 {% block load_css %}
     <link rel="stylesheet" href="../static/css/reviews_page.css">
@@ -23,7 +23,7 @@
             {% for review in reviews %}
                 <div class="col-4" style="text-align:center">
                     <div class="content-review">
-                        <img src="static/img/link/{{ review.photo }}" class="review-photo">
+                        <img src="/static/img/photos_reviews/big_size/{{ review.photo }}" class="review-photo">
                         <h3>{{ review.nickname }}</h3>
                         {% if review.social_link != None %}
                             <p>{{review.social_link}}</p>
