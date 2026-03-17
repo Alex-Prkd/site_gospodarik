@@ -2,3 +2,17 @@
 __pycache__
 venv
 db/information.db
+static/img/background_price_page/*
+static/img/icon/*
+static/img/img_contact_page/background/*
+static/img/img_contact_page/preview_photo/*
+static/img/link/*
+static/img/photos_main_page/big_size/*
+static/img/photos_main_page/middle_size/*
+static/img/photos_main_page/small_size/*
+static/img/photos_reviews/big_size/*
+static/img/photos_reviews/middle_size/*
+static/img/photos_reviews/small_size/*
+static/img/services/big_size/*
+static/img/services/middle_size/*
+static/img/services/small_size/*

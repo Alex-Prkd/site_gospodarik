@@ -11,10 +11,10 @@ class CreateCopySmallSizeIMG:
                             path_big_img: str,
                             path_middle_img: str,
                             path_small_img: str) -> None:
-            for size in self.__sizes:
-                with Image.open(os.path.join(path_big_img, name_img)) as img:
+            with Image.open(os.path.join(path_big_img, name_img)) as img:
+                for size in self.__sizes:
                     width, height = img.size
-                    new_size = (width/size, height/2)
+                    new_size = (width/size, height/size)
                     img.thumbnail(new_size)
                     if size == 2:
                         img.save(f"{path_middle_img}\\{name_img}")

@@ -77,7 +77,7 @@ def review_page():
 
 
 def add_new_review():
-    photo_review = request.files.get("photo")
+    photo_review: FileStorage = request.files.get("photo")
     data = request.form.get("data")
     review = json.loads(data)
     Review.add_new_review(data_review=review, photo_review_title=photo_review)

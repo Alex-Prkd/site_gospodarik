@@ -18,7 +18,7 @@ def accept_inactive_review():
 
 def remove_inactive_review():
     data = request.get_json()
-    Review.remove_review(data["review_id"])
+    res = Review.remove_review(data["review_id"])
     return jsonify({"status": True}), 200
 
 
