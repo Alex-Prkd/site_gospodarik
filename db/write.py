@@ -489,12 +489,11 @@ class Review:
                 new_review.social_link = data_review["social_link"]
                 session_db.add(new_review)
                 if photo_review_title is not None:
-                    photo_review_title.save(os.path.join(path_big_img, photo_review_title.filename))
-                    CreateCopySmallSizeIMG().createMobileIMG(
-                        name_img=photo_review_title.filename,
-                        path_big_img=path_big_img,
-                        path_middle_img=path_middle_img,
-                        path_small_img=path_small_img
+                    CreateCopySmallSizeIMG().convertSizeImgReview(
+                        photo_review_title,
+                        path_big_img,
+                        path_middle_img,
+                        path_small_img
                     )
                 session_db.commit()
             except (SQLAlchemyError, OSError, IOError) as err:

@@ -4,6 +4,7 @@ import os
 from flask import render_template, jsonify, request
 from werkzeug.datastructures import FileStorage
 
+from admin.WorkWithImgServices.ConvertSizeIMG import CreateCopySmallSizeIMG
 from config import PathImg
 from db.models.price_page_db import Service
 from db.read import GetQuote, GetInfoFooter, GetSocialLink, ReviewsPage, PreviewTextContactPage, \
